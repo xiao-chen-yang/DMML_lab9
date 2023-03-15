@@ -1,0 +1,91 @@
+---
+title: "STATS5099 Data Mining and Machine Learning"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r setup, include = FALSE}
+library(webexercises)
+library(tinytex)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE)
+
+library(stats)
+library(cluster)
+```
+
+
+```{r include=FALSE, echo=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+
+# Welcome to DMML Lab 9
+
+In week 9, we studied about partitioning cluster analysis and more specifically, $K$-means clustering and $K$-medoids clustering. 
+
+## K-means
+$K$-means is implemented in `R` using the function `kmeans` in the `stats` package. As explained in Week 9 lecture note, the function takes the following arguments:
+
+- `x`: numeric matrix of data, or an object that can be coerced to such a matrix (such as a numeric vector or a data frame with all numeric columns).
+
+- `centers`: either the number of clusters, $K$, or a set of initial (distinct) cluster centres. If a number, a random set of (distinct) rows in `x` is chosen as the initial centres.
+
+- `iter.max`: the maximum number of iterations allowed.
+
+- `nstart`: if `centers` is a number, how many random sets should be chosen.
+
+The last two arguments are required as $K$-means is implemented using an iterative algorithm and thus may take a few iterations to converge to local optimum, and it is recommended to run the algorithm multiple times to find the best initialisation that leads to a relatively good local optimum. 
+
+`kmeans` return a list of following components (it is important to understand what each component means):
+
+`kmeans` returns an object of class "`kmeans`" which has a `print` and a `fitted` method. It is a list with at least the following components:
+
+- `cluster`: A vector of integers (from 1:$K$) with length equal to the number of observations indicating the cluster to which each point is allocated.
+
+- `centers`: A matrix of cluster centres with each row representing a cluster centre.
+
+- `totss`: The total sum of squares.
+
+- `withinss`: Vector of within-cluster sum of squares, one per cluster.
+
+- `tot.withinss`: Total within-cluster sum of squares, i.e. `sum(withinss)`.
+
+- `betweenss`: The between-cluster sum of squares, i.e. `totss-tot.withinss`.
+
+- `size`: The number of points in each cluster.
+
+- `iter`: The number of (outer) iterations.
+
+## K-medoids
+
+$K$-medoids is implemented by using the function `pam` in the `cluster` package. Its usage and arguments are similar to `kmeans`, except an additional argument `metric` to allow for the flexibility in using non-Euclidean distances. 
+
+- `x`: data matrix or data frame, or dissimilarity matrix. 
+
+- `k`: the number of clusters.
+
+- `metric`: the metric to be used for calculating dissimilarities between observations. The currently available options are "euclidean" and "manhattan". 
+
+- `medoids`: length-`k` vector of integer indices specifying initial medoids; `NULL` (default).
+
+- `nstart`: the number of random "starts"; used only when `medoids = "random"`
+
+The output returned by `pam` includes:
+
+- `medoids`: The medoids or representative objects of the clusters.
+
+- `id.med`: A vector of integers with length $K$ which specifies the indices giving the medoid observation numbers.
+
+- `clustering`: A vector of integers (from 1:$K$) with length equal to the number of observations indicating the cluster to which each point is allocated.
+
+- `clusinfo`: A matrix where each row gives numerical information for one cluster, such as cluster size, maximum dissimilarity within the cluster, average dissimilarity. 
+
+- `silinfo`: A list of silhouette width information. 

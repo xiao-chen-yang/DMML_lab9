@@ -1,0 +1,4 @@
+welcome-to-dmml-lab-9
+k-means
+k-medoids
+exercise-1-usarrests
