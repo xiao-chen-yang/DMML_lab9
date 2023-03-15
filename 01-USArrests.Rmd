@@ -122,13 +122,12 @@ plot(1:K_max, wss, type="b", pch=20, cex=1.5, cex.main=0.9,
      main="Assessing the Optimal Number of Clusters with the Elbow Method")
 ```
 
-In this plot, it is slightly hard to find a clear cut-off point. 
+In this plot, it is slightly hard to find a clear cut-off point. We may choose two clusters or four clusters as it seems that the reduction in within-cluster sum of squares becomes slower. 
 
-<!-- Take advantage  -->
+Alternatively, we can again use the `fviz_nbclust` function by setting the method to `wss`. 
 ```{r}
-ggplot_fviz_wss <-fviz_nbclust(USArrests, FUN=kmeans, method = "wss")
+ggplot_fviz_wss <- fviz_nbclust(USArrests, FUN=kmeans, nstart=100, method = "wss")
 ggplot_fviz_wss #total within sum of square; same as the Elbow method, look at the knee
 ```
-
 
 `r unhide()`

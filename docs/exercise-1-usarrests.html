@@ -285,9 +285,9 @@ Solution
 <span id="cb12-10"><a href="exercise-1-usarrests.html#cb12-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Number of clusters&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Within-cluster sum of squares&quot;</span>,</span>
 <span id="cb12-11"><a href="exercise-1-usarrests.html#cb12-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Assessing the Optimal Number of Clusters with the Elbow Method&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>In this plot, it is slightly hard to find a clear cut-off point.</p>
-<!-- Take advantage  -->
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exercise-1-usarrests.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_wss <span class="ot">&lt;-</span><span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
+<p>In this plot, it is slightly hard to find a clear cut-off point. We may choose two clusters or four clusters as it seems that the reduction in within-cluster sum of squares becomes slower.</p>
+<p>Alternatively, we can again use the <code>fviz_nbclust</code> function by setting the method to <code>wss</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exercise-1-usarrests.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_wss <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">nstart=</span><span class="dv">100</span>, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
 <span id="cb13-2"><a href="exercise-1-usarrests.html#cb13-2" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_wss <span class="co">#total within sum of square; same as the Elbow method, look at the knee</span></span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
