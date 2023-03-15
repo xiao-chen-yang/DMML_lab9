@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>STATS5099 Data Mining and Machine Learning</title>
-  <meta name="description" content="STATS5099 Data Mining and Machine Learning" />
+  <title>3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning</title>
+  <meta name="description" content="3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning" />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="STATS5099 Data Mining and Machine Learning" />
+  <meta property="og:title" content="3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="STATS5099 Data Mining and Machine Learning" />
+  <meta name="twitter:title" content="3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning" />
   
   
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="exercise-1-usarrests.html"/>
 
-<link rel="next" href="exercise-1-usarrests.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -156,55 +156,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">STATS5099 Data Mining and Machine Learning</h1>
+<div id="exercise-2-iris-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Exercise 2: Iris data<a href="exercise-2-iris-data.html#exercise-2-iris-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In Lab 3, we studied the <code>Iris</code> flower data which contain measurements of the length and the width of sepals and petals for three species of Iris. For this exercise, we temporarily ignore the species information and perform <span class="math inline">\(K\)</span>-medoids clustering.</p>
+<p><strong>QUESTION</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Perform <span class="math inline">\(K\)</span>-medoids clustering with <span class="math inline">\(K=3\)</span>, first using the Euclidean distance and then using the Manhattan distance. Visualise the clusters using both <code>plot</code> and <code>clusplot</code>.</li>
+</ol>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>Suppose we would like to group the data into 3 clusters. The corresponding <code>R</code> code is:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exercise-2-iris-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="exercise-2-iris-data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>Iris <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(iris[,<span class="sc">-</span><span class="dv">5</span>]))</span>
+<span id="cb14-3"><a href="exercise-2-iris-data.html#cb14-3" aria-hidden="true" tabindex="-1"></a>Iris_pam.E <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;euclidean&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb14-4"><a href="exercise-2-iris-data.html#cb14-4" aria-hidden="true" tabindex="-1"></a>Iris_pam.M <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;manhattan&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb14-5"><a href="exercise-2-iris-data.html#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="exercise-2-iris-data.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb14-7"><a href="exercise-2-iris-data.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.E<span class="sc">$</span>clustering)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exercise-2-iris-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.M<span class="sc">$</span>clustering)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-15-2.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exercise-2-iris-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clusplot</span></span>
+<span id="cb16-2"><a href="exercise-2-iris-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>Iris_cl.E <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.E<span class="sc">$</span>clustering)</span>
+<span id="cb16-3"><a href="exercise-2-iris-data.html#cb16-3" aria-hidden="true" tabindex="-1"></a>Iris_cl.M <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.M<span class="sc">$</span>clustering)</span>
+<span id="cb16-4"><a href="exercise-2-iris-data.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.E, Iris_pam.E<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
+<span id="cb16-5"><a href="exercise-2-iris-data.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-15-3.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="exercise-2-iris-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.M, Iris_pam.M<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
+<span id="cb17-2"><a href="exercise-2-iris-data.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-15-4.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
-<div id="welcome-to-dmml-lab-9" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Welcome to DMML Lab 9<a href="index.html#welcome-to-dmml-lab-9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In week 9, we studied about partitioning cluster analysis and more specifically, <span class="math inline">\(K\)</span>-means clustering and <span class="math inline">\(K\)</span>-medoids clustering.</p>
-<div id="k-means" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> K-means<a href="index.html#k-means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math inline">\(K\)</span>-means is implemented in <code>R</code> using the function <code>kmeans</code> in the <code>stats</code> package. As explained in Week 9 lecture note, the function takes the following arguments:</p>
-<ul>
-<li><p><code>x</code>: numeric matrix of data, or an object that can be coerced to such a matrix (such as a numeric vector or a data frame with all numeric columns).</p></li>
-<li><p><code>centers</code>: either the number of clusters, <span class="math inline">\(K\)</span>, or a set of initial (distinct) cluster centres. If a number, a random set of (distinct) rows in <code>x</code> is chosen as the initial centres.</p></li>
-<li><p><code>iter.max</code>: the maximum number of iterations allowed.</p></li>
-<li><p><code>nstart</code>: if <code>centers</code> is a number, how many random sets should be chosen.</p></li>
-</ul>
-<p>The last two arguments are required as <span class="math inline">\(K\)</span>-means is implemented using an iterative algorithm and thus may take a few iterations to converge to local optimum, and it is recommended to run the algorithm multiple times to find the best initialisation that leads to a relatively good local optimum.</p>
-<p><code>kmeans</code> return a list of following components (it is important to understand what each component means):</p>
-<p><code>kmeans</code> returns an object of class "<code>kmeans</code>" which has a <code>print</code> and a <code>fitted</code> method. It is a list with at least the following components:</p>
-<ul>
-<li><p><code>cluster</code>: A vector of integers (from 1:<span class="math inline">\(K\)</span>) with length equal to the number of observations indicating the cluster to which each point is allocated.</p></li>
-<li><p><code>centers</code>: A matrix of cluster centres with each row representing a cluster centre.</p></li>
-<li><p><code>totss</code>: The total sum of squares.</p></li>
-<li><p><code>withinss</code>: Vector of within-cluster sum of squares, one per cluster.</p></li>
-<li><p><code>tot.withinss</code>: Total within-cluster sum of squares, i.e. <code>sum(withinss)</code>.</p></li>
-<li><p><code>betweenss</code>: The between-cluster sum of squares, i.e. <code>totss-tot.withinss</code>.</p></li>
-<li><p><code>size</code>: The number of points in each cluster.</p></li>
-<li><p><code>iter</code>: The number of (outer) iterations.</p></li>
-</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Use the average silhouette width to determine which clustering performance is better.</li>
+</ol>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>The silhouette information has already been computed in <code>pam</code> and can be accessed using <code>silinfo</code> (and <code>avg.width</code> for average silhouette width).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exercise-2-iris-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(Iris_pam.E<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width,Iris_pam.M<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width))</span></code></pre></div>
+<pre><code>## [1] 0.4507912 0.4957301</code></pre>
+<p>As higher average silhouette width suggests better clustering, we would prefer the results obtained from <span class="math inline">\(K\)</span>-medoids with the Manhattan distance.</p>
 </div>
-<div id="k-medoids" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> K-medoids<a href="index.html#k-medoids" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math inline">\(K\)</span>-medoids is implemented by using the function <code>pam</code> in the <code>cluster</code> package. Its usage and arguments are similar to <code>kmeans</code>, except an additional argument <code>metric</code> to allow for the flexibility in using non-Euclidean distances.</p>
-<ul>
-<li><p><code>x</code>: data matrix or data frame, or dissimilarity matrix.</p></li>
-<li><p><code>k</code>: the number of clusters.</p></li>
-<li><p><code>metric</code>: the metric to be used for calculating dissimilarities between observations. The currently available options are "euclidean" and "manhattan".</p></li>
-<li><p><code>medoids</code>: length-<code>k</code> vector of integer indices specifying initial medoids; <code>NULL</code> (default).</p></li>
-<li><p><code>nstart</code>: the number of random "starts"; used only when <code>medoids = "random"</code></p></li>
-</ul>
-<p>The output returned by <code>pam</code> includes:</p>
-<ul>
-<li><p><code>medoids</code>: The medoids or representative objects of the clusters.</p></li>
-<li><p><code>id.med</code>: A vector of integers with length <span class="math inline">\(K\)</span> which specifies the indices giving the medoid observation numbers.</p></li>
-<li><p><code>clustering</code>: A vector of integers (from 1:<span class="math inline">\(K\)</span>) with length equal to the number of observations indicating the cluster to which each point is allocated.</p></li>
-<li><p><code>clusinfo</code>: A matrix where each row gives numerical information for one cluster, such as cluster size, maximum dissimilarity within the cluster, average dissimilarity.</p></li>
-<li><p><code>silinfo</code>: A list of silhouette width information.</p></li>
-</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>(optional) Compare the clustering assignment with the ground-truth species type. Which clustering method generates more consistent labels?</li>
+</ol>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>Again, we can use the corrected Rand index to compare the similarity between two sets of labels.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exercise-2-iris-data.html#cb20-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(Iris)</span>
+<span id="cb20-2"><a href="exercise-2-iris-data.html#cb20-2" aria-hidden="true" tabindex="-1"></a>cl.E.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.E<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
+<span id="cb20-3"><a href="exercise-2-iris-data.html#cb20-3" aria-hidden="true" tabindex="-1"></a>cl.M.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.M<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
+<span id="cb20-4"><a href="exercise-2-iris-data.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(cl.E.stats<span class="sc">$</span>corrected.rand, cl.M.stats<span class="sc">$</span>corrected.rand))</span></code></pre></div>
+<pre><code>## [1] 0.6764545 0.7021066</code></pre>
+<p>As higher value suggests more points are assigned to the same cluster, we would prefer <span class="math inline">\(K\)</span>-medoids with the Manhattan distance.</p>
+</div>
 
-</div>
 </div>
 <script>
 
@@ -382,8 +393,8 @@ window.onload = function() {
           </div>
         </div>
       </div>
+<a href="exercise-1-usarrests.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="exercise-1-usarrests.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
