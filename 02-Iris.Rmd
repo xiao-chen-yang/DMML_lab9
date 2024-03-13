@@ -40,6 +40,8 @@ As higher average silhouette width suggests better clustering, we would prefer t
 
 3. (optional) Compare the clustering assignment with the ground-truth species type. Which clustering method generates more consistent labels?  
 
+*This refers to the supplementary material in Week 9 lecture note.*
+
 `r hide("Solution")`
 Again, we can use the corrected Rand index to compare the similarity between two sets of labels. 
 ```{r}

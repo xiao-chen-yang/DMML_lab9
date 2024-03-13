@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning</title>
   <meta name="description" content="3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Exercise 2: Iris data | STATS5099 Data Mining and Machine Learning" />
   <meta property="og:type" content="book" />
@@ -117,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
@@ -168,24 +172,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Solution
 </button>
 <p>Suppose we would like to group the data into 3 clusters. The corresponding <code>R</code> code is:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exercise-2-iris-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="exercise-2-iris-data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>Iris <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(iris[,<span class="sc">-</span><span class="dv">5</span>]))</span>
-<span id="cb14-3"><a href="exercise-2-iris-data.html#cb14-3" aria-hidden="true" tabindex="-1"></a>Iris_pam.E <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;euclidean&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
-<span id="cb14-4"><a href="exercise-2-iris-data.html#cb14-4" aria-hidden="true" tabindex="-1"></a>Iris_pam.M <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;manhattan&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
-<span id="cb14-5"><a href="exercise-2-iris-data.html#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="exercise-2-iris-data.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb14-7"><a href="exercise-2-iris-data.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.E<span class="sc">$</span>clustering)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exercise-2-iris-data.html#cb14-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="exercise-2-iris-data.html#cb14-2" tabindex="-1"></a>Iris <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(iris[,<span class="sc">-</span><span class="dv">5</span>]))</span>
+<span id="cb14-3"><a href="exercise-2-iris-data.html#cb14-3" tabindex="-1"></a>Iris_pam.E <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;euclidean&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb14-4"><a href="exercise-2-iris-data.html#cb14-4" tabindex="-1"></a>Iris_pam.M <span class="ot">&lt;-</span> <span class="fu">pam</span>(Iris, <span class="at">k=</span><span class="dv">3</span>, <span class="at">metric=</span><span class="st">&quot;manhattan&quot;</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb14-5"><a href="exercise-2-iris-data.html#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="exercise-2-iris-data.html#cb14-6" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb14-7"><a href="exercise-2-iris-data.html#cb14-7" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.E<span class="sc">$</span>clustering)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exercise-2-iris-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.M<span class="sc">$</span>clustering)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exercise-2-iris-data.html#cb15-1" tabindex="-1"></a><span class="fu">plot</span>(Iris, <span class="at">col=</span>Iris_pam.M<span class="sc">$</span>clustering)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-2.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exercise-2-iris-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clusplot</span></span>
-<span id="cb16-2"><a href="exercise-2-iris-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>Iris_cl.E <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.E<span class="sc">$</span>clustering)</span>
-<span id="cb16-3"><a href="exercise-2-iris-data.html#cb16-3" aria-hidden="true" tabindex="-1"></a>Iris_cl.M <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.M<span class="sc">$</span>clustering)</span>
-<span id="cb16-4"><a href="exercise-2-iris-data.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.E, Iris_pam.E<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
-<span id="cb16-5"><a href="exercise-2-iris-data.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exercise-2-iris-data.html#cb16-1" tabindex="-1"></a><span class="co"># clusplot</span></span>
+<span id="cb16-2"><a href="exercise-2-iris-data.html#cb16-2" tabindex="-1"></a>Iris_cl.E <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.E<span class="sc">$</span>clustering)</span>
+<span id="cb16-3"><a href="exercise-2-iris-data.html#cb16-3" tabindex="-1"></a>Iris_cl.M <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Iris, Iris_pam.M<span class="sc">$</span>clustering)</span>
+<span id="cb16-4"><a href="exercise-2-iris-data.html#cb16-4" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.E, Iris_pam.E<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
+<span id="cb16-5"><a href="exercise-2-iris-data.html#cb16-5" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-3.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="exercise-2-iris-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.M, Iris_pam.M<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
-<span id="cb17-2"><a href="exercise-2-iris-data.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="exercise-2-iris-data.html#cb17-1" tabindex="-1"></a><span class="fu">clusplot</span>(Iris_cl.M, Iris_pam.M<span class="sc">$</span>clustering, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
+<span id="cb17-2"><a href="exercise-2-iris-data.html#cb17-2" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-4.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <ol start="2" style="list-style-type: decimal">
@@ -196,22 +200,23 @@ Solution
 Solution
 </button>
 <p>The silhouette information has already been computed in <code>pam</code> and can be accessed using <code>silinfo</code> (and <code>avg.width</code> for average silhouette width).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exercise-2-iris-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(Iris_pam.E<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width,Iris_pam.M<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exercise-2-iris-data.html#cb18-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(Iris_pam.E<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width,Iris_pam.M<span class="sc">$</span>silinfo<span class="sc">$</span>avg.width))</span></code></pre></div>
 <pre><code>## [1] 0.4507912 0.4957301</code></pre>
 <p>As higher average silhouette width suggests better clustering, we would prefer the results obtained from <span class="math inline">\(K\)</span>-medoids with the Manhattan distance.</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>(optional) Compare the clustering assignment with the ground-truth species type. Which clustering method generates more consistent labels?</li>
 </ol>
+<p><em>This refers to the supplementary material in Week 9 lecture note.</em></p>
 <div class="webex-solution">
 <button>
 Solution
 </button>
 <p>Again, we can use the corrected Rand index to compare the similarity between two sets of labels.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exercise-2-iris-data.html#cb20-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(Iris)</span>
-<span id="cb20-2"><a href="exercise-2-iris-data.html#cb20-2" aria-hidden="true" tabindex="-1"></a>cl.E.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.E<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
-<span id="cb20-3"><a href="exercise-2-iris-data.html#cb20-3" aria-hidden="true" tabindex="-1"></a>cl.M.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.M<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
-<span id="cb20-4"><a href="exercise-2-iris-data.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(cl.E.stats<span class="sc">$</span>corrected.rand, cl.M.stats<span class="sc">$</span>corrected.rand))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exercise-2-iris-data.html#cb20-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(Iris)</span>
+<span id="cb20-2"><a href="exercise-2-iris-data.html#cb20-2" tabindex="-1"></a>cl.E.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.E<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
+<span id="cb20-3"><a href="exercise-2-iris-data.html#cb20-3" tabindex="-1"></a>cl.M.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, Iris_pam.M<span class="sc">$</span>clustering, <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span>
+<span id="cb20-4"><a href="exercise-2-iris-data.html#cb20-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(cl.E.stats<span class="sc">$</span>corrected.rand, cl.M.stats<span class="sc">$</span>corrected.rand))</span></code></pre></div>
 <pre><code>## [1] 0.6764545 0.7021066</code></pre>
 <p>As higher value suggests more points are assigned to the same cluster, we would prefer <span class="math inline">\(K\)</span>-medoids with the Manhattan distance.</p>
 </div>

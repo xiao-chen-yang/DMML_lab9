@@ -21,6 +21,7 @@ usarr.kcl <- kmeans(USArrests, centers=3, nstart=100)
 ```{r}
 plot(USArrests, col = usarr.kcl$cluster)
 ```
+
 The number of observations in each cluster seems to be more balanced in the $K$-means case compared with the HAC case. In addition, as $K$-means assign observations to their nearest centre, there seems to be slightly less overlapping of clusters. 
 `r unhide()`
 

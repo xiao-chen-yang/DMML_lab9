@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Exercise 1: USArrests | STATS5099 Data Mining and Machine Learning</title>
   <meta name="description" content="2 Exercise 1: USArrests | STATS5099 Data Mining and Machine Learning" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Exercise 1: USArrests | STATS5099 Data Mining and Machine Learning" />
   <meta property="og:type" content="book" />
@@ -117,6 +117,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
@@ -168,9 +172,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Solution
 </button>
 <p>Suppose we would like to group the data into 3 clusters. The corresponding <code>R</code> code is:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="exercise-1-usarrests.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="exercise-1-usarrests.html#cb1-2" aria-hidden="true" tabindex="-1"></a>USArrests <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(USArrests))</span>
-<span id="cb1-3"><a href="exercise-1-usarrests.html#cb1-3" aria-hidden="true" tabindex="-1"></a>usarr.kcl <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="exercise-1-usarrests.html#cb1-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="exercise-1-usarrests.html#cb1-2" tabindex="-1"></a>USArrests <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">scale</span>(USArrests))</span>
+<span id="cb1-3"><a href="exercise-1-usarrests.html#cb1-3" tabindex="-1"></a>usarr.kcl <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span></code></pre></div>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Visualise the <span class="math inline">\(K\)</span>-means result and compare with HAC result obtained in Lab 8.</li>
@@ -179,9 +183,9 @@ Solution
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exercise-1-usarrests.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(USArrests, <span class="at">col =</span> usarr.kcl<span class="sc">$</span>cluster)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-5-1.png" width="672" />
-The number of observations in each cluster seems to be more balanced in the <span class="math inline">\(K\)</span>-means case compared with the HAC case. In addition, as <span class="math inline">\(K\)</span>-means assign observations to their nearest centre, there seems to be slightly less overlapping of clusters.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exercise-1-usarrests.html#cb2-1" tabindex="-1"></a><span class="fu">plot</span>(USArrests, <span class="at">col =</span> usarr.kcl<span class="sc">$</span>cluster)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The number of observations in each cluster seems to be more balanced in the <span class="math inline">\(K\)</span>-means case compared with the HAC case. In addition, as <span class="math inline">\(K\)</span>-means assign observations to their nearest centre, there seems to be slightly less overlapping of clusters.</p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>Get the cluster means and append the cluster assignment to a new data frame.</li>
@@ -196,14 +200,14 @@ Hint
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exercise-1-usarrests.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get cluster means</span></span>
-<span id="cb3-2"><a href="exercise-1-usarrests.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(USArrests,<span class="at">by=</span><span class="fu">list</span>(usarr.kcl<span class="sc">$</span>cluster),<span class="at">FUN=</span>mean)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exercise-1-usarrests.html#cb3-1" tabindex="-1"></a><span class="co"># get cluster means</span></span>
+<span id="cb3-2"><a href="exercise-1-usarrests.html#cb3-2" tabindex="-1"></a><span class="fu">aggregate</span>(USArrests,<span class="at">by=</span><span class="fu">list</span>(usarr.kcl<span class="sc">$</span>cluster),<span class="at">FUN=</span>mean)</span></code></pre></div>
 <pre><code>##   Group.1     Murder    Assault   UrbanPop       Rape
 ## 1       1 -0.9615407 -1.1066010 -0.9301069 -0.9667633
 ## 2       2 -0.4469795 -0.3465138  0.4788049 -0.2571398
 ## 3       3  1.0049340  1.0138274  0.1975853  0.8469650</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exercise-1-usarrests.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># append cluster assignment</span></span>
-<span id="cb5-2"><a href="exercise-1-usarrests.html#cb5-2" aria-hidden="true" tabindex="-1"></a>USArrests_cl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(USArrests, usarr.kcl<span class="sc">$</span>cluster)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exercise-1-usarrests.html#cb5-1" tabindex="-1"></a><span class="co"># append cluster assignment</span></span>
+<span id="cb5-2"><a href="exercise-1-usarrests.html#cb5-2" tabindex="-1"></a>USArrests_cl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(USArrests, usarr.kcl<span class="sc">$</span>cluster)</span></code></pre></div>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>Plot the cluster results (saved in the new data frame) using the <code>clusplot</code> function within the <code>cluster</code> library.</li>
@@ -212,9 +216,9 @@ Solution
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exercise-1-usarrests.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb6-2"><a href="exercise-1-usarrests.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(USArrests_cl, usarr.kcl<span class="sc">$</span>cluster, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
-<span id="cb6-3"><a href="exercise-1-usarrests.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exercise-1-usarrests.html#cb6-1" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb6-2"><a href="exercise-1-usarrests.html#cb6-2" tabindex="-1"></a><span class="fu">clusplot</span>(USArrests_cl, usarr.kcl<span class="sc">$</span>cluster, <span class="at">color=</span><span class="cn">TRUE</span>, <span class="at">shade=</span><span class="cn">TRUE</span>,</span>
+<span id="cb6-3"><a href="exercise-1-usarrests.html#cb6-3" tabindex="-1"></a>    <span class="at">labels=</span><span class="dv">2</span>, <span class="at">lines=</span><span class="dv">0</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The <code>clusplot</code> function uses principal component analysis (PCA) to draw the data. Thus, <code>Component 1</code> and <code>Component 2</code> refer to the first and second PCs, and <code>These two components explain xx% of the point variability</code> lists the cumulative proportion of variation explained by the first two PCs.</p>
 </div>
@@ -227,14 +231,14 @@ Solution
 Solution
 </button>
 <p>We have already said that choosing <span class="math inline">\(K\)</span> (i.e. the numbers of clusters) can sometimes look arbitrary. In that case we may be interested to compare the similarity between two cluster solutions using a variety of information criteria.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exercise-1-usarrests.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
-<span id="cb7-2"><a href="exercise-1-usarrests.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="exercise-1-usarrests.html#cb7-3" aria-hidden="true" tabindex="-1"></a>usarr.kcl<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
-<span id="cb7-4"><a href="exercise-1-usarrests.html#cb7-4" aria-hidden="true" tabindex="-1"></a>usarr.kcl<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
-<span id="cb7-5"><a href="exercise-1-usarrests.html#cb7-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(USArrests)</span>
-<span id="cb7-6"><a href="exercise-1-usarrests.html#cb7-6" aria-hidden="true" tabindex="-1"></a>cl.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, usarr.kcl<span class="fl">.3</span><span class="sc">$</span>cluster, usarr.kcl<span class="fl">.5</span><span class="sc">$</span>cluster)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exercise-1-usarrests.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
+<span id="cb7-2"><a href="exercise-1-usarrests.html#cb7-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="exercise-1-usarrests.html#cb7-3" tabindex="-1"></a>usarr.kcl<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb7-4"><a href="exercise-1-usarrests.html#cb7-4" tabindex="-1"></a>usarr.kcl<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">5</span>, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb7-5"><a href="exercise-1-usarrests.html#cb7-5" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(USArrests)</span>
+<span id="cb7-6"><a href="exercise-1-usarrests.html#cb7-6" tabindex="-1"></a>cl.stats <span class="ot">&lt;-</span> <span class="fu">cluster.stats</span>(d, usarr.kcl<span class="fl">.3</span><span class="sc">$</span>cluster, usarr.kcl<span class="fl">.5</span><span class="sc">$</span>cluster)</span></code></pre></div>
 <p>The corrected Rand index provides a measure for assessing the similarity between two partitions, adjusted for chance. Its range is <span class="math inline">\(-1\)</span> (no agreement) to <span class="math inline">\(1\)</span> (perfect agreement). Using the Rand index, agreement between the cluster solutions is</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exercise-1-usarrests.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cl.stats<span class="sc">$</span>corrected.rand,<span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exercise-1-usarrests.html#cb8-1" tabindex="-1"></a><span class="fu">round</span>(cl.stats<span class="sc">$</span>corrected.rand,<span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.52</code></pre>
 </div>
 <ol start="6" style="list-style-type: decimal">
@@ -245,20 +249,20 @@ Solution
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exercise-1-usarrests.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb10-2"><a href="exercise-1-usarrests.html#cb10-2" aria-hidden="true" tabindex="-1"></a>usarrests.kmeans<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">2</span>, <span class="at">iter.max=</span><span class="dv">1000</span>)</span>
-<span id="cb10-3"><a href="exercise-1-usarrests.html#cb10-3" aria-hidden="true" tabindex="-1"></a>usarrests.kmeans<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">iter.max=</span><span class="dv">1000</span>)</span>
-<span id="cb10-4"><a href="exercise-1-usarrests.html#cb10-4" aria-hidden="true" tabindex="-1"></a>si.k2 <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(usarrests.kmeans<span class="fl">.2</span><span class="sc">$</span>cluster, <span class="fu">dist</span>(USArrests))</span>
-<span id="cb10-5"><a href="exercise-1-usarrests.html#cb10-5" aria-hidden="true" tabindex="-1"></a>si.k3 <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(usarrests.kmeans<span class="fl">.3</span><span class="sc">$</span>cluster, <span class="fu">dist</span>(USArrests))</span>
-<span id="cb10-6"><a href="exercise-1-usarrests.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb10-7"><a href="exercise-1-usarrests.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(si.k2, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="at">main =</span> <span class="st">&quot;silhouette plot when k=2&quot;</span>)</span>
-<span id="cb10-8"><a href="exercise-1-usarrests.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(si.k3, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">main =</span> <span class="st">&quot;silhouette plot when k=3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exercise-1-usarrests.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb10-2"><a href="exercise-1-usarrests.html#cb10-2" tabindex="-1"></a>usarrests.kmeans<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">2</span>, <span class="at">iter.max=</span><span class="dv">1000</span>)</span>
+<span id="cb10-3"><a href="exercise-1-usarrests.html#cb10-3" tabindex="-1"></a>usarrests.kmeans<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span><span class="dv">3</span>, <span class="at">iter.max=</span><span class="dv">1000</span>)</span>
+<span id="cb10-4"><a href="exercise-1-usarrests.html#cb10-4" tabindex="-1"></a>si.k2 <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(usarrests.kmeans<span class="fl">.2</span><span class="sc">$</span>cluster, <span class="fu">dist</span>(USArrests))</span>
+<span id="cb10-5"><a href="exercise-1-usarrests.html#cb10-5" tabindex="-1"></a>si.k3 <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(usarrests.kmeans<span class="fl">.3</span><span class="sc">$</span>cluster, <span class="fu">dist</span>(USArrests))</span>
+<span id="cb10-6"><a href="exercise-1-usarrests.html#cb10-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb10-7"><a href="exercise-1-usarrests.html#cb10-7" tabindex="-1"></a><span class="fu">plot</span>(si.k2, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="at">main =</span> <span class="st">&quot;silhouette plot when k=2&quot;</span>)</span>
+<span id="cb10-8"><a href="exercise-1-usarrests.html#cb10-8" tabindex="-1"></a><span class="fu">plot</span>(si.k3, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">main =</span> <span class="st">&quot;silhouette plot when k=3&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-10-1.png" width="624" style="display: block; margin: auto;" /></p>
 <p>We can see that the 2 cluster solution has a higher average silhouette width than the 3 cluster solution. So if we were using this measure to decide, we would select the 2 cluster solution.</p>
 <p>To test over a larger range of <span class="math inline">\(K\)</span>, we can use the function <code>fviz_nbclust</code> from the package <code>factoextra</code>. The argument <code>method</code> allows for different criteria in selecting the optimal number of clusters.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exercise-1-usarrests.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb11-2"><a href="exercise-1-usarrests.html#cb11-2" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_sil <span class="ot">&lt;-</span><span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)</span>
-<span id="cb11-3"><a href="exercise-1-usarrests.html#cb11-3" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_sil <span class="co">#average siluhouette; the higher the better</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exercise-1-usarrests.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb11-2"><a href="exercise-1-usarrests.html#cb11-2" tabindex="-1"></a>ggplot_fviz_sil <span class="ot">&lt;-</span><span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>)</span>
+<span id="cb11-3"><a href="exercise-1-usarrests.html#cb11-3" tabindex="-1"></a>ggplot_fviz_sil <span class="co">#average siluhouette; the higher the better</span></span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <ol start="7" style="list-style-type: decimal">
@@ -274,22 +278,22 @@ Hint
 <button>
 Solution
 </button>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exercise-1-usarrests.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb12-2"><a href="exercise-1-usarrests.html#cb12-2" aria-hidden="true" tabindex="-1"></a>K_max <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="co">#maximum number of clusters</span></span>
-<span id="cb12-3"><a href="exercise-1-usarrests.html#cb12-3" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, K_max)</span>
-<span id="cb12-4"><a href="exercise-1-usarrests.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>K_max){</span>
-<span id="cb12-5"><a href="exercise-1-usarrests.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  usarrests.kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span>i, <span class="at">nstart=</span><span class="dv">100</span>)</span>
-<span id="cb12-6"><a href="exercise-1-usarrests.html#cb12-6" aria-hidden="true" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> usarrests.kmeans<span class="sc">$</span>tot.withinss</span>
-<span id="cb12-7"><a href="exercise-1-usarrests.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-8"><a href="exercise-1-usarrests.html#cb12-8" aria-hidden="true" tabindex="-1"></a>wss[<span class="dv">1</span>] <span class="ot">&lt;-</span> usarrests.kmeans<span class="sc">$</span>totss</span>
-<span id="cb12-9"><a href="exercise-1-usarrests.html#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>K_max, wss, <span class="at">type=</span><span class="st">&quot;b&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">cex.main=</span><span class="fl">0.9</span>,</span>
-<span id="cb12-10"><a href="exercise-1-usarrests.html#cb12-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Number of clusters&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Within-cluster sum of squares&quot;</span>,</span>
-<span id="cb12-11"><a href="exercise-1-usarrests.html#cb12-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Assessing the Optimal Number of Clusters with the Elbow Method&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exercise-1-usarrests.html#cb12-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="exercise-1-usarrests.html#cb12-2" tabindex="-1"></a>K_max <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="co">#maximum number of clusters</span></span>
+<span id="cb12-3"><a href="exercise-1-usarrests.html#cb12-3" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, K_max)</span>
+<span id="cb12-4"><a href="exercise-1-usarrests.html#cb12-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>K_max){</span>
+<span id="cb12-5"><a href="exercise-1-usarrests.html#cb12-5" tabindex="-1"></a>  usarrests.kmeans <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(USArrests, <span class="at">centers=</span>i, <span class="at">nstart=</span><span class="dv">100</span>)</span>
+<span id="cb12-6"><a href="exercise-1-usarrests.html#cb12-6" tabindex="-1"></a>  wss[i] <span class="ot">&lt;-</span> usarrests.kmeans<span class="sc">$</span>tot.withinss</span>
+<span id="cb12-7"><a href="exercise-1-usarrests.html#cb12-7" tabindex="-1"></a>  }</span>
+<span id="cb12-8"><a href="exercise-1-usarrests.html#cb12-8" tabindex="-1"></a>wss[<span class="dv">1</span>] <span class="ot">&lt;-</span> usarrests.kmeans<span class="sc">$</span>totss</span>
+<span id="cb12-9"><a href="exercise-1-usarrests.html#cb12-9" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>K_max, wss, <span class="at">type=</span><span class="st">&quot;b&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">cex.main=</span><span class="fl">0.9</span>,</span>
+<span id="cb12-10"><a href="exercise-1-usarrests.html#cb12-10" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Number of clusters&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Within-cluster sum of squares&quot;</span>,</span>
+<span id="cb12-11"><a href="exercise-1-usarrests.html#cb12-11" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Assessing the Optimal Number of Clusters with the Elbow Method&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>In this plot, it is slightly hard to find a clear cut-off point. We may choose two clusters or four clusters as it seems that the reduction in within-cluster sum of squares becomes slower.</p>
 <p>Alternatively, we can again use the <code>fviz_nbclust</code> function by setting the method to <code>wss</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exercise-1-usarrests.html#cb13-1" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_wss <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">nstart=</span><span class="dv">100</span>, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
-<span id="cb13-2"><a href="exercise-1-usarrests.html#cb13-2" aria-hidden="true" tabindex="-1"></a>ggplot_fviz_wss <span class="co">#total within sum of square; same as the Elbow method, look at the knee</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exercise-1-usarrests.html#cb13-1" tabindex="-1"></a>ggplot_fviz_wss <span class="ot">&lt;-</span> <span class="fu">fviz_nbclust</span>(USArrests, <span class="at">FUN=</span>kmeans, <span class="at">nstart=</span><span class="dv">100</span>, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>)</span>
+<span id="cb13-2"><a href="exercise-1-usarrests.html#cb13-2" tabindex="-1"></a>ggplot_fviz_wss <span class="co">#total within sum of square; same as the Elbow method, look at the knee</span></span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 
