@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Transformers for sentiment analysis | STATS5099 Data Mining and Machine Learning</title>
+  <meta name="description" content="3 Transformers for sentiment analysis | STATS5099 Data Mining and Machine Learning" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Transformers for sentiment analysis | STATS5099 Data Mining and Machine Learning" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Transformers for sentiment analysis | STATS5099 Data Mining and Machine Learning" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="recurrent-neural-network-rnn.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to DMML Lab 9</a></li>
+<li class="chapter" data-level="2" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html"><i class="fa fa-check"></i><b>2</b> Recurrent Neural Network (RNN)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html#build-a-rnn-network"><i class="fa fa-check"></i><b>2.1</b> Build a RNN network</a></li>
+<li class="chapter" data-level="2.2" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html#training-and-evaluating-the-rnn"><i class="fa fa-check"></i><b>2.2</b> Training and evaluating the RNN</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html"><i class="fa fa-check"></i><b>3</b> Transformers for sentiment analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#download-the-dataset"><i class="fa fa-check"></i><b>3.1</b> Download the dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#build-a-transformer"><i class="fa fa-check"></i><b>3.2</b> Build a transformer</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#positional-encoding"><i class="fa fa-check"></i><b>3.2.1</b> Positional encoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#multi-head-attention"><i class="fa fa-check"></i><b>3.2.2</b> Multi-head attention</a></li>
+<li class="chapter" data-level="3.2.3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#transformer-network"><i class="fa fa-check"></i><b>3.2.3</b> Transformer network</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#train-and-evaluate-the-transformer"><i class="fa fa-check"></i><b>3.3</b> Train and evaluate the transformer</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STATS5099 Data Mining and Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transformers-for-sentiment-analysis" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Transformers for sentiment analysis<a href="transformers-for-sentiment-analysis.html#transformers-for-sentiment-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="transformers-for-sentiment-analysis.html#cb15-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb15-2"><a href="transformers-for-sentiment-analysis.html#cb15-2" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb15-3"><a href="transformers-for-sentiment-analysis.html#cb15-3" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb15-4"><a href="transformers-for-sentiment-analysis.html#cb15-4" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> DataLoader, TensorDataset</span>
+<span id="cb15-5"><a href="transformers-for-sentiment-analysis.html#cb15-5" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb15-6"><a href="transformers-for-sentiment-analysis.html#cb15-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div id="download-the-dataset" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Download the dataset<a href="transformers-for-sentiment-analysis.html#download-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="transformers-for-sentiment-analysis.html#cb16-1" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb16-2"><a href="transformers-for-sentiment-analysis.html#cb16-2" tabindex="-1"></a>imdb <span class="op">=</span> tf.keras.datasets.imdb</span>
+<span id="cb16-3"><a href="transformers-for-sentiment-analysis.html#cb16-3" tabindex="-1"></a>vocab_size <span class="op">=</span> <span class="dv">20000</span>  <span class="co"># Only consider the top 20k words</span></span>
+<span id="cb16-4"><a href="transformers-for-sentiment-analysis.html#cb16-4" tabindex="-1"></a>(x_train, y_train), (x_test, y_test) <span class="op">=</span> imdb.load_data(num_words<span class="op">=</span>vocab_size)</span>
+<span id="cb16-5"><a href="transformers-for-sentiment-analysis.html#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="transformers-for-sentiment-analysis.html#cb16-6" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Number of training samples:&quot;</span>, <span class="bu">len</span>(x_train))</span></code></pre></div>
+<pre><code>## Number of training samples: 25000</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="transformers-for-sentiment-analysis.html#cb18-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Number of test samples:&quot;</span>, <span class="bu">len</span>(x_test))</span></code></pre></div>
+<pre><code>## Number of test samples: 25000</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="transformers-for-sentiment-analysis.html#cb20-1" tabindex="-1"></a><span class="bu">print</span>(x_train[<span class="dv">0</span>:<span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## [list([1, 14, 22, 16, 43, 530, 973, 1622, 1385, 65, 458, 4468, 66, 3941, 4, 173, 36, 256, 5, 25, 100, 43, 838, 112, 50, 670, 2, 9, 35, 480, 284, 5, 150, 4, 172, 112, 167, 2, 336, 385, 39, 4, 172, 4536, 1111, 17, 546, 38, 13, 447, 4, 192, 50, 16, 6, 147, 2025, 19, 14, 22, 4, 1920, 4613, 469, 4, 22, 71, 87, 12, 16, 43, 530, 38, 76, 15, 13, 1247, 4, 22, 17, 515, 17, 12, 16, 626, 18, 19193, 5, 62, 386, 12, 8, 316, 8, 106, 5, 4, 2223, 5244, 16, 480, 66, 3785, 33, 4, 130, 12, 16, 38, 619, 5, 25, 124, 51, 36, 135, 48, 25, 1415, 33, 6, 22, 12, 215, 28, 77, 52, 5, 14, 407, 16, 82, 10311, 8, 4, 107, 117, 5952, 15, 256, 4, 2, 7, 3766, 5, 723, 36, 71, 43, 530, 476, 26, 400, 317, 46, 7, 4, 12118, 1029, 13, 104, 88, 4, 381, 15, 297, 98, 32, 2071, 56, 26, 141, 6, 194, 7486, 18, 4, 226, 22, 21, 134, 476, 26, 480, 5, 144, 30, 5535, 18, 51, 36, 28, 224, 92, 25, 104, 4, 226, 65, 16, 38, 1334, 88, 12, 16, 283, 5, 16, 4472, 113, 103, 32, 15, 16, 5345, 19, 178, 32])
+##  list([1, 194, 1153, 194, 8255, 78, 228, 5, 6, 1463, 4369, 5012, 134, 26, 4, 715, 8, 118, 1634, 14, 394, 20, 13, 119, 954, 189, 102, 5, 207, 110, 3103, 21, 14, 69, 188, 8, 30, 23, 7, 4, 249, 126, 93, 4, 114, 9, 2300, 1523, 5, 647, 4, 116, 9, 35, 8163, 4, 229, 9, 340, 1322, 4, 118, 9, 4, 130, 4901, 19, 4, 1002, 5, 89, 29, 952, 46, 37, 4, 455, 9, 45, 43, 38, 1543, 1905, 398, 4, 1649, 26, 6853, 5, 163, 11, 3215, 10156, 4, 1153, 9, 194, 775, 7, 8255, 11596, 349, 2637, 148, 605, 15358, 8003, 15, 123, 125, 68, 2, 6853, 15, 349, 165, 4362, 98, 5, 4, 228, 9, 43, 2, 1157, 15, 299, 120, 5, 120, 174, 11, 220, 175, 136, 50, 9, 4373, 228, 8255, 5, 2, 656, 245, 2350, 5, 4, 9837, 131, 152, 491, 18, 2, 32, 7464, 1212, 14, 9, 6, 371, 78, 22, 625, 64, 1382, 9, 8, 168, 145, 23, 4, 1690, 15, 16, 4, 1355, 5, 28, 6, 52, 154, 462, 33, 89, 78, 285, 16, 145, 95])
+##  list([1, 14, 47, 8, 30, 31, 7, 4, 249, 108, 7, 4, 5974, 54, 61, 369, 13, 71, 149, 14, 22, 112, 4, 2401, 311, 12, 16, 3711, 33, 75, 43, 1829, 296, 4, 86, 320, 35, 534, 19, 263, 4821, 1301, 4, 1873, 33, 89, 78, 12, 66, 16, 4, 360, 7, 4, 58, 316, 334, 11, 4, 1716, 43, 645, 662, 8, 257, 85, 1200, 42, 1228, 2578, 83, 68, 3912, 15, 36, 165, 1539, 278, 36, 69, 2, 780, 8, 106, 14, 6905, 1338, 18, 6, 22, 12, 215, 28, 610, 40, 6, 87, 326, 23, 2300, 21, 23, 22, 12, 272, 40, 57, 31, 11, 4, 22, 47, 6, 2307, 51, 9, 170, 23, 595, 116, 595, 1352, 13, 191, 79, 638, 89, 2, 14, 9, 8, 106, 607, 624, 35, 534, 6, 227, 7, 129, 113])
+##  list([1, 4, 18609, 16085, 33, 2804, 4, 2040, 432, 111, 153, 103, 4, 1494, 13, 70, 131, 67, 11, 61, 15305, 744, 35, 3715, 761, 61, 5766, 452, 9214, 4, 985, 7, 2, 59, 166, 4, 105, 216, 1239, 41, 1797, 9, 15, 7, 35, 744, 2413, 31, 8, 4, 687, 23, 4, 2, 7339, 6, 3693, 42, 38, 39, 121, 59, 456, 10, 10, 7, 265, 12, 575, 111, 153, 159, 59, 16, 1447, 21, 25, 586, 482, 39, 4, 96, 59, 716, 12, 4, 172, 65, 9, 579, 11, 6004, 4, 1615, 5, 2, 7, 5168, 17, 13, 7064, 12, 19, 6, 464, 31, 314, 11, 2, 6, 719, 605, 11, 8, 202, 27, 310, 4, 3772, 3501, 8, 2722, 58, 10, 10, 537, 2116, 180, 40, 14, 413, 173, 7, 263, 112, 37, 152, 377, 4, 537, 263, 846, 579, 178, 54, 75, 71, 476, 36, 413, 263, 2504, 182, 5, 17, 75, 2306, 922, 36, 279, 131, 2895, 17, 2867, 42, 17, 35, 921, 18435, 192, 5, 1219, 3890, 19, 2, 217, 4122, 1710, 537, 2, 1236, 5, 736, 10, 10, 61, 403, 9, 2, 40, 61, 4494, 5, 27, 4494, 159, 90, 263, 2311, 4319, 309, 8, 178, 5, 82, 4319, 4, 65, 15, 9225, 145, 143, 5122, 12, 7039, 537, 746, 537, 537, 15, 7979, 4, 18665, 594, 7, 5168, 94, 9096, 3987, 15242, 11, 2, 4, 538, 7, 1795, 246, 2, 9, 10161, 11, 635, 14, 9, 51, 408, 12, 94, 318, 1382, 12, 47, 6, 2683, 936, 5, 6307, 10197, 19, 49, 7, 4, 1885, 13699, 1118, 25, 80, 126, 842, 10, 10, 2, 18223, 4726, 27, 4494, 11, 1550, 3633, 159, 27, 341, 29, 2733, 19, 4185, 173, 7, 90, 16376, 8, 30, 11, 4, 1784, 86, 1117, 8, 3261, 46, 11, 2, 21, 29, 9, 2841, 23, 4, 1010, 2, 793, 6, 13699, 1386, 1830, 10, 10, 246, 50, 9, 6, 2750, 1944, 746, 90, 29, 16376, 8, 124, 4, 882, 4, 882, 496, 27, 2, 2213, 537, 121, 127, 1219, 130, 5, 29, 494, 8, 124, 4, 882, 496, 4, 341, 7, 27, 846, 10, 10, 29, 9, 1906, 8, 97, 6, 236, 11120, 1311, 8, 4, 2, 7, 31, 7, 2, 91, 2, 3987, 70, 4, 882, 30, 579, 42, 9, 12, 32, 11, 537, 10, 10, 11, 14, 65, 44, 537, 75, 11876, 1775, 3353, 12716, 1846, 4, 11286, 7, 154, 5, 4, 518, 53, 13243, 11286, 7, 3211, 882, 11, 399, 38, 75, 257, 3807, 19, 18223, 17, 29, 456, 4, 65, 7, 27, 205, 113, 10, 10, 2, 4, 2, 10359, 9, 242, 4, 91, 1202, 11377, 5, 2070, 307, 22, 7, 5168, 126, 93, 40, 18223, 13, 188, 1076, 3222, 19, 4, 13465, 7, 2348, 537, 23, 53, 537, 21, 82, 40, 18223, 13, 2, 14, 280, 13, 219, 4, 2, 431, 758, 859, 4, 953, 1052, 12283, 7, 5991, 5, 94, 40, 25, 238, 60, 2, 4, 15812, 804, 2, 7, 4, 9941, 132, 8, 67, 6, 22, 15, 9, 283, 8, 5168, 14, 31, 9, 242, 955, 48, 25, 279, 2, 23, 12, 1685, 195, 25, 238, 60, 796, 13713, 4, 671, 7, 2804, 5, 4, 559, 154, 888, 7, 726, 50, 26, 49, 7008, 15, 566, 30, 579, 21, 64, 2574])
+##  list([1, 249, 1323, 7, 61, 113, 10, 10, 13, 1637, 14, 20, 56, 33, 2401, 18, 457, 88, 13, 2626, 1400, 45, 3171, 13, 70, 79, 49, 706, 919, 13, 16, 355, 340, 355, 1696, 96, 143, 4, 22, 32, 289, 7, 61, 369, 71, 2359, 5, 13, 16, 131, 2073, 249, 114, 249, 229, 249, 20, 13, 28, 126, 110, 13, 473, 8, 569, 61, 419, 56, 429, 6, 1513, 18, 35, 534, 95, 474, 570, 5, 25, 124, 138, 88, 12, 421, 1543, 52, 725, 6397, 61, 419, 11, 13, 1571, 15, 1543, 20, 11, 4, 2, 5, 296, 12, 3524, 5, 15, 421, 128, 74, 233, 334, 207, 126, 224, 12, 562, 298, 2167, 1272, 7, 2601, 5, 516, 988, 43, 8, 79, 120, 15, 595, 13, 784, 25, 3171, 18, 165, 170, 143, 19, 14, 5, 7224, 6, 226, 251, 7, 61, 113])]</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="transformers-for-sentiment-analysis.html#cb22-1" tabindex="-1"></a><span class="bu">print</span>(y_train[<span class="dv">0</span>:<span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## [1 0 0 1 0]</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="transformers-for-sentiment-analysis.html#cb24-1" tabindex="-1"></a><span class="co"># Retrieve the dictionary which maps words to indices.</span></span>
+<span id="cb24-2"><a href="transformers-for-sentiment-analysis.html#cb24-2" tabindex="-1"></a>word_to_integer <span class="op">=</span> imdb.get_word_index()</span>
+<span id="cb24-3"><a href="transformers-for-sentiment-analysis.html#cb24-3" tabindex="-1"></a><span class="bu">list</span>(word_to_integer.items())[<span class="dv">0</span>:<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [(&#39;fawn&#39;, 34701), (&#39;tsukino&#39;, 52006), (&#39;nunnery&#39;, 52007), (&#39;sonja&#39;, 16816), (&#39;vani&#39;, 63951)]</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="transformers-for-sentiment-analysis.html#cb26-1" tabindex="-1"></a><span class="co"># Build a new dictionary which reverses the mapping, i.e. (index, word)</span></span>
+<span id="cb26-2"><a href="transformers-for-sentiment-analysis.html#cb26-2" tabindex="-1"></a>integer_to_word <span class="op">=</span> <span class="bu">dict</span>([(value, key) <span class="cf">for</span> (key, value) <span class="kw">in</span> word_to_integer.items()])</span>
+<span id="cb26-3"><a href="transformers-for-sentiment-analysis.html#cb26-3" tabindex="-1"></a><span class="bu">list</span>(integer_to_word.items())[<span class="dv">0</span>:<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [(34701, &#39;fawn&#39;), (52006, &#39;tsukino&#39;), (52007, &#39;nunnery&#39;), (16816, &#39;sonja&#39;), (63951, &#39;vani&#39;)]</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="transformers-for-sentiment-analysis.html#cb28-1" tabindex="-1"></a><span class="co"># Print out a review</span></span>
+<span id="cb28-2"><a href="transformers-for-sentiment-analysis.html#cb28-2" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb28-3"><a href="transformers-for-sentiment-analysis.html#cb28-3" tabindex="-1"></a>    decoded_review <span class="op">=</span> [integer_to_word.get(i <span class="op">-</span> <span class="dv">3</span>,<span class="st">&#39;pad&#39;</span>) <span class="cf">for</span> i <span class="kw">in</span> x_train[n]]</span>
+<span id="cb28-4"><a href="transformers-for-sentiment-analysis.html#cb28-4" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="transformers-for-sentiment-analysis.html#cb28-5" tabindex="-1"></a>    <span class="cf">if</span> y_train[n]<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb28-6"><a href="transformers-for-sentiment-analysis.html#cb28-6" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Negative review: </span><span class="ch">\n</span><span class="st">&quot;</span>, end<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb28-7"><a href="transformers-for-sentiment-analysis.html#cb28-7" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb28-8"><a href="transformers-for-sentiment-analysis.html#cb28-8" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Positive review: </span><span class="ch">\n</span><span class="st">&quot;</span>, end<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb28-9"><a href="transformers-for-sentiment-analysis.html#cb28-9" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="transformers-for-sentiment-analysis.html#cb28-10" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> decoded_review:</span>
+<span id="cb28-11"><a href="transformers-for-sentiment-analysis.html#cb28-11" tabindex="-1"></a>        <span class="cf">if</span> word <span class="op">==</span> <span class="st">&#39;pad&#39;</span>:</span>
+<span id="cb28-12"><a href="transformers-for-sentiment-analysis.html#cb28-12" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb28-13"><a href="transformers-for-sentiment-analysis.html#cb28-13" tabindex="-1"></a>        <span class="bu">print</span>(word, end<span class="op">=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb28-14"><a href="transformers-for-sentiment-analysis.html#cb28-14" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Positive review: 
+## this film was just brilliant casting location scenery story direction everyone&#39;s really suited the part they played and you could just imagine being there robert is an amazing actor and now the same being director father came from the same scottish island as myself so i loved the fact there was a real connection with this film the witty remarks throughout the film were great it was just brilliant so much that i bought the film as soon as it was released for retail and would recommend it to everyone to watch and the fly fishing was amazing really cried at the end it was so sad and you know what they say if you cry at a film it must have been good and this definitely was also congratulations to the two little boy&#39;s that played the of norman and paul they were just brilliant children are often left out of the praising list i think because the stars that play them all grown up are such a big profile for the whole film but these children are amazing and should be praised for what they have done don&#39;t you think the whole story was so lovely because it was true and was someone&#39;s life after all that was shared with us all 
+## 
+## Negative review: 
+## big hair big boobs bad music and a giant safety pin these are the words to best describe this terrible movie i love cheesy horror movies and i&#39;ve seen hundreds but this had got to be on of the worst ever made the plot is paper thin and ridiculous the acting is an abomination the script is completely laughable the best is the end showdown with the cop and how he worked out who the killer is it&#39;s just so damn terribly written the clothes are sickening and funny in equal measures the hair is big lots of boobs bounce men wear those cut tee shirts that show off their sickening that men actually wore them and the music is just trash that plays over and over again in almost every scene there is trashy music boobs and taking away bodies and the gym still doesn&#39;t close for all joking aside this is a truly bad film whose only charm is to look back on the disaster that was the 80&#39;s and have a good old laugh at how bad everything was back then 
+## 
+## Negative review: 
+## this has to be one of the worst films of the 1990s when my friends i were watching this film being the target audience it was aimed at we just sat watched the first half an hour with our jaws touching the floor at how bad it really was the rest of the time everyone else in the theatre just started talking to each other leaving or generally crying into their popcorn that they actually paid money they had working to watch this feeble excuse for a film it must have looked like a great idea on paper but on film it looks like no one in the film has a clue what is going on crap acting crap costumes i can&#39;t get across how this is to watch save yourself an hour a bit of your life 
+## 
+## Positive review: 
+## the scots excel at storytelling the traditional sort many years after the event i can still see in my mind&#39;s eye an elderly lady my friend&#39;s mother retelling the battle of she makes the characters come alive her passion is that of an eye witness one to the events on the heath a mile or so from where she lives br br of course it happened many years before she was born but you wouldn&#39;t guess from the way she tells it the same story is told in bars the length and of scotland as i discussed it with a friend one night in a local cut in to give his version the discussion continued to closing time br br stories passed down like this become part of our being who doesn&#39;t remember the stories our parents told us when we were children they become our invisible world and as we grow older they maybe still serve as inspiration or as an emotional reservoir fact and fiction blend with role models warning stories magic and mystery br br my name is like my grandfather and his grandfather before him our protagonist introduces himself to us and also introduces the story that stretches back through generations it produces stories within stories stories that evoke the impenetrable wonder of scotland its rugged mountains shrouded in the stuff of legend yet is rooted in reality this is what gives it its special charm it has a rough beauty and authenticity tempered with some of the finest gaelic singing you will ever hear br br angus visits his grandfather in hospital shortly before his death he burns with frustration part of him yearns to be in the twenty first century to hang out in but he is raised on the western among a gaelic speaking community br br yet there is a deeper conflict within him he yearns to know the truth the truth behind his ancient stories where does fiction end and he wants to know the truth behind the death of his parents br br he is pulled to make a last fateful journey to the of one of most mountains can the truth be told or is it all in stories br br in this story about stories we revisit bloody battles poisoned lovers the folklore of old and the sometimes more treacherous folklore of accepted truth in doing so we each connect with angus as he lives the story of his own life br br the pinnacle is probably the most honest unpretentious and genuinely beautiful film of scotland ever made like angus i got slightly annoyed with the pretext of hanging stories on more stories but also like angus i this once i saw the picture &#39; forget the box office pastiche of braveheart and its like you might even the justly famous of the wicker man to see a film that is true to scotland this one is probably unique if you maybe on it deeply enough you might even re evaluate the power of storytelling and the age old question of whether there are some truths that cannot be told but only experienced 
+## 
+## Negative review: 
+## worst mistake of my life br br i picked this movie up at target for 5 because i figured hey it&#39;s sandler i can get some cheap laughs i was wrong completely wrong mid way through the film all three of my friends were asleep and i was still suffering worst plot worst script worst movie i have ever seen i wanted to hit my head up against a wall for an hour then i&#39;d stop and you know why because it felt damn good upon bashing my head in i stuck that damn movie in the and watched it burn and that felt better than anything else i&#39;ve ever done it took american psycho army of darkness and kill bill just to get over that crap i hate you sandler for actually going through with this and ruining a whole day of my life</code></pre>
+<p>Convert text data to a fixed length:
+* Truncate long reviews (cut words at the front)
+* Pad short reviews (add zeros at the front)</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="transformers-for-sentiment-analysis.html#cb30-1" tabindex="-1"></a><span class="kw">def</span> pad_sequences(sequences, maxlen):</span>
+<span id="cb30-2"><a href="transformers-for-sentiment-analysis.html#cb30-2" tabindex="-1"></a>    <span class="co"># Truncate long reviews to length of &#39;maxlen&#39;</span></span>
+<span id="cb30-3"><a href="transformers-for-sentiment-analysis.html#cb30-3" tabindex="-1"></a>    tensor_sequences <span class="op">=</span> [torch.tensor(seq, dtype<span class="op">=</span>torch.<span class="bu">long</span>)[<span class="op">-</span>maxlen:] <span class="cf">for</span> seq <span class="kw">in</span> sequences]</span>
+<span id="cb30-4"><a href="transformers-for-sentiment-analysis.html#cb30-4" tabindex="-1"></a>    <span class="co"># Pad short reviews to length of &#39;maxlen&#39; (add 0 at the beginning)</span></span>
+<span id="cb30-5"><a href="transformers-for-sentiment-analysis.html#cb30-5" tabindex="-1"></a>    <span class="cf">return</span> torch.nn.utils.rnn.pad_sequence(tensor_sequences, batch_first<span class="op">=</span><span class="va">True</span>, padding_side<span class="op">=</span><span class="st">&quot;left&quot;</span>)</span>
+<span id="cb30-6"><a href="transformers-for-sentiment-analysis.html#cb30-6" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="transformers-for-sentiment-analysis.html#cb30-7" tabindex="-1"></a>max_length <span class="op">=</span> <span class="dv">256</span>  <span class="co"># Fix each movie review to be a length of 256 words</span></span>
+<span id="cb30-8"><a href="transformers-for-sentiment-analysis.html#cb30-8" tabindex="-1"></a>x_train <span class="op">=</span> pad_sequences(x_train, max_length)</span>
+<span id="cb30-9"><a href="transformers-for-sentiment-analysis.html#cb30-9" tabindex="-1"></a>x_test  <span class="op">=</span> pad_sequences(x_test,  max_length)</span></code></pre></div>
+</div>
+<div id="build-a-transformer" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Build a transformer<a href="transformers-for-sentiment-analysis.html#build-a-transformer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Transformer architecture:</p>
+<p><img src="transformer.png" /></p>
+<p>Input embedding: The IMDB dataset downloaded from Keras has already converted text to integer, and we have set the length of input embeddings as 256.</p>
+<div id="positional-encoding" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Positional encoding<a href="transformers-for-sentiment-analysis.html#positional-encoding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="PE1.png" /></p>
+<p>The positional encoding is given by sine and cosine functions of varying frequencies:</p>
+<p><span class="math display">\[P(k,2i) = \sin\left(\frac{k}{n^{2i/d}}\right)\]</span></p>
+<p><span class="math display">\[P(k,2i+1) = \cos\left(\frac{k}{n^{2i/d}}\right),\]</span></p>
+<p>where
+* <span class="math inline">\(P(k,j)\)</span>: Position function for mapping a position <span class="math inline">\(k\)</span> in the input sequence to index <span class="math inline">\((k,j)\)</span> of the positional matrix;
+* <span class="math inline">\(d\)</span>: Dimension of the output embedding space (set to be same as the dimension of the input embedding space in <a href="https://arxiv.org/pdf/1706.03762">1</a>);
+* <span class="math inline">\(n\)</span>: vocabulary size (set to 10,000 in <a href="https://arxiv.org/pdf/1706.03762">1</a>);
+* <span class="math inline">\(i\)</span>: Used for mapping to column indices, with a single value of maps to both sine and cosine functions.</p>
+<p><img src="PE2.png" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="transformers-for-sentiment-analysis.html#cb31-1" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb31-2"><a href="transformers-for-sentiment-analysis.html#cb31-2" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">512</span></span>
+<span id="cb31-3"><a href="transformers-for-sentiment-analysis.html#cb31-3" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb31-4"><a href="transformers-for-sentiment-analysis.html#cb31-4" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="transformers-for-sentiment-analysis.html#cb31-5" tabindex="-1"></a>P <span class="op">=</span> np.zeros((K, d))</span>
+<span id="cb31-6"><a href="transformers-for-sentiment-analysis.html#cb31-6" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(K):</span>
+<span id="cb31-7"><a href="transformers-for-sentiment-analysis.html#cb31-7" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(d<span class="op">/</span><span class="dv">2</span>)):</span>
+<span id="cb31-8"><a href="transformers-for-sentiment-analysis.html#cb31-8" tabindex="-1"></a>        P[k,<span class="dv">2</span><span class="op">*</span>i] <span class="op">=</span> np.sin(k<span class="op">/</span>np.power(n,<span class="dv">2</span><span class="op">*</span>i<span class="op">/</span>d))</span>
+<span id="cb31-9"><a href="transformers-for-sentiment-analysis.html#cb31-9" tabindex="-1"></a>        P[k,<span class="dv">2</span><span class="op">*</span>i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> np.cos(k<span class="op">/</span>np.power(n,<span class="dv">2</span><span class="op">*</span>i<span class="op">/</span>d))</span>
+<span id="cb31-10"><a href="transformers-for-sentiment-analysis.html#cb31-10" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="transformers-for-sentiment-analysis.html#cb31-11" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb31-12"><a href="transformers-for-sentiment-analysis.html#cb31-12" tabindex="-1"></a>cax <span class="op">=</span> plt.matshow(P)</span>
+<span id="cb31-13"><a href="transformers-for-sentiment-analysis.html#cb31-13" tabindex="-1"></a>plt.title(<span class="st">&quot;The positional encoding matrix for n=10,000, d=512, sequence length=100&quot;</span>)</span>
+<span id="cb31-14"><a href="transformers-for-sentiment-analysis.html#cb31-14" tabindex="-1"></a>plt.gcf().colorbar(cax)</span></code></pre></div>
+<pre><code>## &lt;matplotlib.colorbar.Colorbar object at 0x00000263E9F78510&gt;</code></pre>
+<p><img src="main_files/figure-html/unnamed-chunk-21-1.png" width="1536" /></p>
+<p>Reference:</p>
+<p>[1] <a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></p>
+<p>[2] <a href="https://machinelearningmastery.com/a-gentle-introduction-to-positional-encoding-in-transformer-models-part-1/">A Gentle Introduction to Positional Encoding in Transformer Models</a></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="transformers-for-sentiment-analysis.html#cb33-1" tabindex="-1"></a><span class="kw">class</span> PositionalEncoding(nn.Module):</span>
+<span id="cb33-2"><a href="transformers-for-sentiment-analysis.html#cb33-2" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="transformers-for-sentiment-analysis.html#cb33-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, max_len, dmodel, dropout):</span>
+<span id="cb33-4"><a href="transformers-for-sentiment-analysis.html#cb33-4" tabindex="-1"></a>        <span class="co"># max_len: The maximum expected sequence length.</span></span>
+<span id="cb33-5"><a href="transformers-for-sentiment-analysis.html#cb33-5" tabindex="-1"></a>        <span class="co"># dmodel: Dimensionality of the input embedding vector.</span></span>
+<span id="cb33-6"><a href="transformers-for-sentiment-analysis.html#cb33-6" tabindex="-1"></a>        <span class="co"># dropout: Probability of an element of the tensor to be zeroed.</span></span>
+<span id="cb33-7"><a href="transformers-for-sentiment-analysis.html#cb33-7" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="transformers-for-sentiment-analysis.html#cb33-8" tabindex="-1"></a>        <span class="bu">super</span>(PositionalEncoding, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb33-9"><a href="transformers-for-sentiment-analysis.html#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="transformers-for-sentiment-analysis.html#cb33-10" tabindex="-1"></a>        <span class="va">self</span>.dropout <span class="op">=</span> nn.Dropout(dropout)</span>
+<span id="cb33-11"><a href="transformers-for-sentiment-analysis.html#cb33-11" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="transformers-for-sentiment-analysis.html#cb33-12" tabindex="-1"></a>        <span class="co"># Create pos_encoding, positions and dimensions matrices</span></span>
+<span id="cb33-13"><a href="transformers-for-sentiment-analysis.html#cb33-13" tabindex="-1"></a>        <span class="co"># with a shape of (max_len, dmodel)</span></span>
+<span id="cb33-14"><a href="transformers-for-sentiment-analysis.html#cb33-14" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding <span class="op">=</span> torch.zeros(max_len, dmodel)</span>
+<span id="cb33-15"><a href="transformers-for-sentiment-analysis.html#cb33-15" tabindex="-1"></a>        positions <span class="op">=</span> torch.repeat_interleave(torch.arange(<span class="bu">float</span>(max_len)).unsqueeze(<span class="dv">1</span>), dmodel, dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb33-16"><a href="transformers-for-sentiment-analysis.html#cb33-16" tabindex="-1"></a>        dimensions <span class="op">=</span> torch.arange(<span class="bu">float</span>(dmodel)).repeat(max_len, <span class="dv">1</span>)</span>
+<span id="cb33-17"><a href="transformers-for-sentiment-analysis.html#cb33-17" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="transformers-for-sentiment-analysis.html#cb33-18" tabindex="-1"></a>        <span class="co"># Calculate the encodings trigonometric function argument (max_len, dmodel)</span></span>
+<span id="cb33-19"><a href="transformers-for-sentiment-analysis.html#cb33-19" tabindex="-1"></a>        trig_fn_arg <span class="op">=</span> positions <span class="op">/</span> (torch.<span class="bu">pow</span>(<span class="dv">10000</span>, <span class="dv">2</span> <span class="op">*</span> dimensions <span class="op">/</span> dmodel))</span>
+<span id="cb33-20"><a href="transformers-for-sentiment-analysis.html#cb33-20" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="transformers-for-sentiment-analysis.html#cb33-21" tabindex="-1"></a>        <span class="co"># Encode positions using sin function for even dimensions and</span></span>
+<span id="cb33-22"><a href="transformers-for-sentiment-analysis.html#cb33-22" tabindex="-1"></a>        <span class="co"># cos function for odd dimensions</span></span>
+<span id="cb33-23"><a href="transformers-for-sentiment-analysis.html#cb33-23" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding[:, <span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> torch.sin(trig_fn_arg[:, <span class="dv">0</span>::<span class="dv">2</span>])</span>
+<span id="cb33-24"><a href="transformers-for-sentiment-analysis.html#cb33-24" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding[:, <span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> torch.cos(trig_fn_arg[:, <span class="dv">1</span>::<span class="dv">2</span>])</span>
+<span id="cb33-25"><a href="transformers-for-sentiment-analysis.html#cb33-25" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="transformers-for-sentiment-analysis.html#cb33-26" tabindex="-1"></a>        <span class="co"># Add batch dimension</span></span>
+<span id="cb33-27"><a href="transformers-for-sentiment-analysis.html#cb33-27" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding <span class="op">=</span> <span class="va">self</span>.pos_encoding.unsqueeze(<span class="dv">0</span>)</span>
+<span id="cb33-28"><a href="transformers-for-sentiment-analysis.html#cb33-28" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="transformers-for-sentiment-analysis.html#cb33-29" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, embedd):</span>
+<span id="cb33-30"><a href="transformers-for-sentiment-analysis.html#cb33-30" tabindex="-1"></a>        <span class="co"># embedd: Batch of word embeddings (batch_size, seq_length, dmodel = embedding_dim)</span></span>
+<span id="cb33-31"><a href="transformers-for-sentiment-analysis.html#cb33-31" tabindex="-1"></a></span>
+<span id="cb33-32"><a href="transformers-for-sentiment-analysis.html#cb33-32" tabindex="-1"></a>        <span class="co"># Sum up word embeddings and positional embeddings (batch_size, seq_length, dmodel)</span></span>
+<span id="cb33-33"><a href="transformers-for-sentiment-analysis.html#cb33-33" tabindex="-1"></a>        embedd <span class="op">=</span> embedd <span class="op">+</span> <span class="va">self</span>.pos_encoding[:, :embedd.size(<span class="dv">1</span>), :]</span>
+<span id="cb33-34"><a href="transformers-for-sentiment-analysis.html#cb33-34" tabindex="-1"></a>               <span class="co"># embedd shape (batch_size, seq_length, embedding_dim)</span></span>
+<span id="cb33-35"><a href="transformers-for-sentiment-analysis.html#cb33-35" tabindex="-1"></a>               <span class="co"># pos_encoding shape (1, max_len, dmodel = embedd_dim)</span></span>
+<span id="cb33-36"><a href="transformers-for-sentiment-analysis.html#cb33-36" tabindex="-1"></a>        embedd <span class="op">=</span> <span class="va">self</span>.dropout(embedd)</span>
+<span id="cb33-37"><a href="transformers-for-sentiment-analysis.html#cb33-37" tabindex="-1"></a></span>
+<span id="cb33-38"><a href="transformers-for-sentiment-analysis.html#cb33-38" tabindex="-1"></a>        <span class="co"># embedd shape (batch_size, seq_length, embedding_dim)</span></span>
+<span id="cb33-39"><a href="transformers-for-sentiment-analysis.html#cb33-39" tabindex="-1"></a>        <span class="cf">return</span> embedd</span></code></pre></div>
+</div>
+<div id="multi-head-attention" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Multi-head attention<a href="transformers-for-sentiment-analysis.html#multi-head-attention" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The formula for attention is given by:</p>
+<p><span class="math display">\[\text{Attention}(Q,K,V)=\text{softmax}(\frac{QK^\top}{\sqrt{d_k}})V,\]</span></p>
+<p>where
+* <span class="math inline">\(Q,K,V\)</span> stands for the query, key and value matrices;
+* <span class="math inline">\(d_k\)</span> is the dimensionality of <span class="math inline">\(Q,K,V\)</span> matrices (number of columns).</p>
+<p><br></p>
+<p>In the case of self-attention, <span class="math inline">\(Q,K,V\)</span> are obtained as:</p>
+<p><span class="math display">\[Q = X W^Q, k = X W^K, V = X W^V,\]</span></p>
+<p>where <span class="math inline">\(X\)</span> is the input and <span class="math inline">\(W^Q, W^K, W^V \in \mathbb{R}^{d_\text{input} \times d_k}\)</span> are projection matrices that are initialised randomly and learned during training.</p>
+<p><br></p>
+<p>Instead of performing a single attention function, multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions:</p>
+<p><span class="math display">\[\begin{split}
+\text{MultiHead}(Q,K,V)&amp;=\text{Concat}(\text{head}_1,\cdots, \text{head}_h)W^O \\
+\text{where } \text{head}_i &amp;= \text{Attention}(X W^Q_i, X W^K_i, X W^V_i)
+\end{split}\]</span></p>
+<p><img src="MHA.png" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="transformers-for-sentiment-analysis.html#cb34-1" tabindex="-1"></a><span class="co">### Attention</span></span>
+<span id="cb34-2"><a href="transformers-for-sentiment-analysis.html#cb34-2" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> random</span>
+<span id="cb34-3"><a href="transformers-for-sentiment-analysis.html#cb34-3" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> softmax</span>
+<span id="cb34-4"><a href="transformers-for-sentiment-analysis.html#cb34-4" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="transformers-for-sentiment-analysis.html#cb34-5" tabindex="-1"></a><span class="co"># input = x_train_subset[0:5]</span></span>
+<span id="cb34-6"><a href="transformers-for-sentiment-analysis.html#cb34-6" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> random.rand(<span class="dv">5</span>, max_length)</span>
+<span id="cb34-7"><a href="transformers-for-sentiment-analysis.html#cb34-7" tabindex="-1"></a>d_input <span class="op">=</span> max_length <span class="co"># 256</span></span>
+<span id="cb34-8"><a href="transformers-for-sentiment-analysis.html#cb34-8" tabindex="-1"></a>d_k <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb34-9"><a href="transformers-for-sentiment-analysis.html#cb34-9" tabindex="-1"></a>W_Q <span class="op">=</span> random.rand(d_input, d_k)<span class="op">;</span> Q <span class="op">=</span> np.matmul(<span class="bu">input</span>, W_Q)</span>
+<span id="cb34-10"><a href="transformers-for-sentiment-analysis.html#cb34-10" tabindex="-1"></a>W_V <span class="op">=</span> random.rand(d_input, d_k)<span class="op">;</span> V <span class="op">=</span> np.matmul(<span class="bu">input</span>, W_V)</span>
+<span id="cb34-11"><a href="transformers-for-sentiment-analysis.html#cb34-11" tabindex="-1"></a>W_K <span class="op">=</span> random.rand(d_input, d_k)<span class="op">;</span> K <span class="op">=</span> np.matmul(<span class="bu">input</span>, W_K)</span>
+<span id="cb34-12"><a href="transformers-for-sentiment-analysis.html#cb34-12" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="transformers-for-sentiment-analysis.html#cb34-13" tabindex="-1"></a>Weights <span class="op">=</span> softmax(np.matmul(Q, np.transpose(K)) <span class="op">/</span> np.sqrt(d_k), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb34-14"><a href="transformers-for-sentiment-analysis.html#cb34-14" tabindex="-1"></a>Attention <span class="op">=</span> np.matmul(Weights, V)</span>
+<span id="cb34-15"><a href="transformers-for-sentiment-analysis.html#cb34-15" tabindex="-1"></a>Attention</span></code></pre></div>
+<pre><code>## array([[70.64450182, 71.02139873, 74.20936656, 73.38930151, 70.74998119,
+##         65.20745055, 67.77078011, 71.59050395, 70.54410679, 71.77716252,
+##         68.43443416, 68.97098062, 70.93421718, 66.08579751, 74.68181511,
+##         72.68646173],
+##        [70.64450182, 71.02139873, 74.20936656, 73.38930151, 70.74998119,
+##         65.20745055, 67.77078011, 71.59050395, 70.54410679, 71.77716252,
+##         68.43443416, 68.97098062, 70.93421718, 66.08579751, 74.68181511,
+##         72.68646173],
+##        [70.64450182, 71.02139873, 74.20936656, 73.38930151, 70.74998119,
+##         65.20745055, 67.77078011, 71.59050395, 70.54410679, 71.77716252,
+##         68.43443416, 68.97098062, 70.93421718, 66.08579751, 74.68181511,
+##         72.68646173],
+##        [70.64450182, 71.02139873, 74.20936656, 73.38930151, 70.74998119,
+##         65.20745055, 67.77078011, 71.59050395, 70.54410679, 71.77716252,
+##         68.43443416, 68.97098062, 70.93421718, 66.08579751, 74.68181511,
+##         72.68646173],
+##        [70.64450182, 71.02139873, 74.20936656, 73.38930151, 70.74998119,
+##         65.20745055, 67.77078011, 71.59050395, 70.54410679, 71.77716252,
+##         68.43443416, 68.97098062, 70.93421718, 66.08579751, 74.68181511,
+##         72.68646173]])</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="transformers-for-sentiment-analysis.html#cb36-1" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb36-2"><a href="transformers-for-sentiment-analysis.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="transformers-for-sentiment-analysis.html#cb36-3" tabindex="-1"></a><span class="kw">class</span> MultiHeadAttention(nn.Module):</span>
+<span id="cb36-4"><a href="transformers-for-sentiment-analysis.html#cb36-4" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, d_model, num_heads):</span>
+<span id="cb36-5"><a href="transformers-for-sentiment-analysis.html#cb36-5" tabindex="-1"></a>        <span class="bu">super</span>(MultiHeadAttention, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb36-6"><a href="transformers-for-sentiment-analysis.html#cb36-6" tabindex="-1"></a>        <span class="co"># Ensure that the model dimension (d_model) is divisible by the number of heads</span></span>
+<span id="cb36-7"><a href="transformers-for-sentiment-analysis.html#cb36-7" tabindex="-1"></a>        <span class="cf">assert</span> d_model <span class="op">%</span> num_heads <span class="op">==</span> <span class="dv">0</span>, <span class="st">&quot;d_model must be divisible by num_heads&quot;</span></span>
+<span id="cb36-8"><a href="transformers-for-sentiment-analysis.html#cb36-8" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="transformers-for-sentiment-analysis.html#cb36-9" tabindex="-1"></a>        <span class="co"># Initialize dimensions</span></span>
+<span id="cb36-10"><a href="transformers-for-sentiment-analysis.html#cb36-10" tabindex="-1"></a>        <span class="va">self</span>.d_model <span class="op">=</span> d_model <span class="co"># Model&#39;s dimension</span></span>
+<span id="cb36-11"><a href="transformers-for-sentiment-analysis.html#cb36-11" tabindex="-1"></a>        <span class="va">self</span>.num_heads <span class="op">=</span> num_heads <span class="co"># Number of attention heads</span></span>
+<span id="cb36-12"><a href="transformers-for-sentiment-analysis.html#cb36-12" tabindex="-1"></a>        <span class="va">self</span>.d_k <span class="op">=</span> d_model <span class="op">//</span> num_heads <span class="co"># Dimension of each head&#39;s key, query, and value</span></span>
+<span id="cb36-13"><a href="transformers-for-sentiment-analysis.html#cb36-13" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="transformers-for-sentiment-analysis.html#cb36-14" tabindex="-1"></a>        <span class="co"># Linear layers for transforming inputs</span></span>
+<span id="cb36-15"><a href="transformers-for-sentiment-analysis.html#cb36-15" tabindex="-1"></a>        <span class="va">self</span>.W_q <span class="op">=</span> nn.Linear(d_model, d_model) <span class="co"># Query transformation</span></span>
+<span id="cb36-16"><a href="transformers-for-sentiment-analysis.html#cb36-16" tabindex="-1"></a>        <span class="va">self</span>.W_k <span class="op">=</span> nn.Linear(d_model, d_model) <span class="co"># Key transformation</span></span>
+<span id="cb36-17"><a href="transformers-for-sentiment-analysis.html#cb36-17" tabindex="-1"></a>        <span class="va">self</span>.W_v <span class="op">=</span> nn.Linear(d_model, d_model) <span class="co"># Value transformation</span></span>
+<span id="cb36-18"><a href="transformers-for-sentiment-analysis.html#cb36-18" tabindex="-1"></a>        <span class="va">self</span>.W_o <span class="op">=</span> nn.Linear(d_model, d_model) <span class="co"># Output transformation</span></span>
+<span id="cb36-19"><a href="transformers-for-sentiment-analysis.html#cb36-19" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="transformers-for-sentiment-analysis.html#cb36-20" tabindex="-1"></a>    <span class="kw">def</span> scaled_dot_product_attention(<span class="va">self</span>, Q, K, V, mask<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb36-21"><a href="transformers-for-sentiment-analysis.html#cb36-21" tabindex="-1"></a>        <span class="co"># Calculate attention scores</span></span>
+<span id="cb36-22"><a href="transformers-for-sentiment-analysis.html#cb36-22" tabindex="-1"></a>        attn_scores <span class="op">=</span> torch.matmul(Q, K.transpose(<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>)) <span class="op">/</span> math.sqrt(<span class="va">self</span>.d_k)</span>
+<span id="cb36-23"><a href="transformers-for-sentiment-analysis.html#cb36-23" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="transformers-for-sentiment-analysis.html#cb36-24" tabindex="-1"></a>        <span class="co"># Apply mask if provided (useful for preventing attention to certain parts like padding)</span></span>
+<span id="cb36-25"><a href="transformers-for-sentiment-analysis.html#cb36-25" tabindex="-1"></a>        <span class="cf">if</span> mask <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb36-26"><a href="transformers-for-sentiment-analysis.html#cb36-26" tabindex="-1"></a>            attn_scores <span class="op">=</span> attn_scores.masked_fill(mask <span class="op">==</span> <span class="dv">0</span>, <span class="op">-</span><span class="fl">1e9</span>)</span>
+<span id="cb36-27"><a href="transformers-for-sentiment-analysis.html#cb36-27" tabindex="-1"></a></span>
+<span id="cb36-28"><a href="transformers-for-sentiment-analysis.html#cb36-28" tabindex="-1"></a>        <span class="co"># Softmax is applied to obtain attention probabilities</span></span>
+<span id="cb36-29"><a href="transformers-for-sentiment-analysis.html#cb36-29" tabindex="-1"></a>        attn_probs <span class="op">=</span> torch.softmax(attn_scores, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb36-30"><a href="transformers-for-sentiment-analysis.html#cb36-30" tabindex="-1"></a></span>
+<span id="cb36-31"><a href="transformers-for-sentiment-analysis.html#cb36-31" tabindex="-1"></a>        <span class="co"># Multiply by values to obtain the final output</span></span>
+<span id="cb36-32"><a href="transformers-for-sentiment-analysis.html#cb36-32" tabindex="-1"></a>        output <span class="op">=</span> torch.matmul(attn_probs, V)</span>
+<span id="cb36-33"><a href="transformers-for-sentiment-analysis.html#cb36-33" tabindex="-1"></a>        <span class="cf">return</span> output</span>
+<span id="cb36-34"><a href="transformers-for-sentiment-analysis.html#cb36-34" tabindex="-1"></a></span>
+<span id="cb36-35"><a href="transformers-for-sentiment-analysis.html#cb36-35" tabindex="-1"></a>    <span class="kw">def</span> split_heads(<span class="va">self</span>, x):</span>
+<span id="cb36-36"><a href="transformers-for-sentiment-analysis.html#cb36-36" tabindex="-1"></a>        <span class="co"># Reshape the input to have num_heads for multi-head attention</span></span>
+<span id="cb36-37"><a href="transformers-for-sentiment-analysis.html#cb36-37" tabindex="-1"></a>        batch_size, seq_length, d_model <span class="op">=</span> x.size()</span>
+<span id="cb36-38"><a href="transformers-for-sentiment-analysis.html#cb36-38" tabindex="-1"></a>        <span class="cf">return</span> x.view(batch_size, seq_length, <span class="va">self</span>.num_heads, <span class="va">self</span>.d_k).transpose(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb36-39"><a href="transformers-for-sentiment-analysis.html#cb36-39" tabindex="-1"></a></span>
+<span id="cb36-40"><a href="transformers-for-sentiment-analysis.html#cb36-40" tabindex="-1"></a>    <span class="kw">def</span> combine_heads(<span class="va">self</span>, x):</span>
+<span id="cb36-41"><a href="transformers-for-sentiment-analysis.html#cb36-41" tabindex="-1"></a>        <span class="co"># Combine the multiple heads back to original shape</span></span>
+<span id="cb36-42"><a href="transformers-for-sentiment-analysis.html#cb36-42" tabindex="-1"></a>        batch_size, _, seq_length, d_k <span class="op">=</span> x.size()</span>
+<span id="cb36-43"><a href="transformers-for-sentiment-analysis.html#cb36-43" tabindex="-1"></a>        <span class="cf">return</span> x.transpose(<span class="dv">1</span>, <span class="dv">2</span>).contiguous().view(batch_size, seq_length, <span class="va">self</span>.d_model)</span>
+<span id="cb36-44"><a href="transformers-for-sentiment-analysis.html#cb36-44" tabindex="-1"></a></span>
+<span id="cb36-45"><a href="transformers-for-sentiment-analysis.html#cb36-45" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, Q, K, V, mask<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb36-46"><a href="transformers-for-sentiment-analysis.html#cb36-46" tabindex="-1"></a>        <span class="co"># Apply linear transformations and split heads</span></span>
+<span id="cb36-47"><a href="transformers-for-sentiment-analysis.html#cb36-47" tabindex="-1"></a>        Q <span class="op">=</span> <span class="va">self</span>.split_heads(<span class="va">self</span>.W_q(Q))</span>
+<span id="cb36-48"><a href="transformers-for-sentiment-analysis.html#cb36-48" tabindex="-1"></a>        K <span class="op">=</span> <span class="va">self</span>.split_heads(<span class="va">self</span>.W_k(K))</span>
+<span id="cb36-49"><a href="transformers-for-sentiment-analysis.html#cb36-49" tabindex="-1"></a>        V <span class="op">=</span> <span class="va">self</span>.split_heads(<span class="va">self</span>.W_v(V))</span>
+<span id="cb36-50"><a href="transformers-for-sentiment-analysis.html#cb36-50" tabindex="-1"></a></span>
+<span id="cb36-51"><a href="transformers-for-sentiment-analysis.html#cb36-51" tabindex="-1"></a>        <span class="co"># Perform scaled dot-product attention</span></span>
+<span id="cb36-52"><a href="transformers-for-sentiment-analysis.html#cb36-52" tabindex="-1"></a>        attn_output <span class="op">=</span> <span class="va">self</span>.scaled_dot_product_attention(Q, K, V, mask)</span>
+<span id="cb36-53"><a href="transformers-for-sentiment-analysis.html#cb36-53" tabindex="-1"></a></span>
+<span id="cb36-54"><a href="transformers-for-sentiment-analysis.html#cb36-54" tabindex="-1"></a>        <span class="co"># Combine heads and apply output transformation</span></span>
+<span id="cb36-55"><a href="transformers-for-sentiment-analysis.html#cb36-55" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.W_o(<span class="va">self</span>.combine_heads(attn_output))</span>
+<span id="cb36-56"><a href="transformers-for-sentiment-analysis.html#cb36-56" tabindex="-1"></a>        <span class="cf">return</span> output</span></code></pre></div>
+</div>
+<div id="transformer-network" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Transformer network<a href="transformers-for-sentiment-analysis.html#transformer-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="transformers-for-sentiment-analysis.html#cb37-1" tabindex="-1"></a><span class="kw">class</span> TransformerBlock(nn.Module):</span>
+<span id="cb37-2"><a href="transformers-for-sentiment-analysis.html#cb37-2" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb37-3"><a href="transformers-for-sentiment-analysis.html#cb37-3" tabindex="-1"></a><span class="co">    Transformer block structure:</span></span>
+<span id="cb37-4"><a href="transformers-for-sentiment-analysis.html#cb37-4" tabindex="-1"></a><span class="co">    x --&gt; Multi-Head --&gt; Layer normalization --&gt; Pos-Wise FFNN --&gt; Layer normalization --&gt; y</span></span>
+<span id="cb37-5"><a href="transformers-for-sentiment-analysis.html#cb37-5" tabindex="-1"></a><span class="co">      |   Attention   |                       |                 |</span></span>
+<span id="cb37-6"><a href="transformers-for-sentiment-analysis.html#cb37-6" tabindex="-1"></a><span class="co">      |_______________|                       |_________________|</span></span>
+<span id="cb37-7"><a href="transformers-for-sentiment-analysis.html#cb37-7" tabindex="-1"></a><span class="co">     residual connection                      residual connection</span></span>
+<span id="cb37-8"><a href="transformers-for-sentiment-analysis.html#cb37-8" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb37-9"><a href="transformers-for-sentiment-analysis.html#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="transformers-for-sentiment-analysis.html#cb37-10" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dmodel, ffnn_hidden_size, heads, dropout):</span>
+<span id="cb37-11"><a href="transformers-for-sentiment-analysis.html#cb37-11" tabindex="-1"></a>        <span class="co"># dmodel: Dimensionality of the input embedding vector.</span></span>
+<span id="cb37-12"><a href="transformers-for-sentiment-analysis.html#cb37-12" tabindex="-1"></a>        <span class="co"># ffnn_hidden_size: Position-Wise-Feed-Forward Neural Network hidden size.</span></span>
+<span id="cb37-13"><a href="transformers-for-sentiment-analysis.html#cb37-13" tabindex="-1"></a>        <span class="co"># heads: Number of the self-attention operations to conduct in parallel.</span></span>
+<span id="cb37-14"><a href="transformers-for-sentiment-analysis.html#cb37-14" tabindex="-1"></a>        <span class="co"># dropout: Probability of an element of the tensor to be zeroed.</span></span>
+<span id="cb37-15"><a href="transformers-for-sentiment-analysis.html#cb37-15" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="transformers-for-sentiment-analysis.html#cb37-16" tabindex="-1"></a>        <span class="bu">super</span>(TransformerBlock, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb37-17"><a href="transformers-for-sentiment-analysis.html#cb37-17" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="transformers-for-sentiment-analysis.html#cb37-18" tabindex="-1"></a>        <span class="co"># For MHA, use the default function from torch.nn or the previously built class</span></span>
+<span id="cb37-19"><a href="transformers-for-sentiment-analysis.html#cb37-19" tabindex="-1"></a>        <span class="va">self</span>.attention <span class="op">=</span> nn.MultiheadAttention(dmodel, heads, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb37-20"><a href="transformers-for-sentiment-analysis.html#cb37-20" tabindex="-1"></a>        <span class="co"># self.attention = MultiHeadAttention(dmodel, heads)</span></span>
+<span id="cb37-21"><a href="transformers-for-sentiment-analysis.html#cb37-21" tabindex="-1"></a>        <span class="va">self</span>.layer_norm1 <span class="op">=</span> nn.LayerNorm(dmodel)</span>
+<span id="cb37-22"><a href="transformers-for-sentiment-analysis.html#cb37-22" tabindex="-1"></a>        <span class="va">self</span>.layer_norm2 <span class="op">=</span> nn.LayerNorm(dmodel)</span>
+<span id="cb37-23"><a href="transformers-for-sentiment-analysis.html#cb37-23" tabindex="-1"></a>        <span class="va">self</span>.ffnn <span class="op">=</span> nn.Sequential(</span>
+<span id="cb37-24"><a href="transformers-for-sentiment-analysis.html#cb37-24" tabindex="-1"></a>                nn.Linear(dmodel, ffnn_hidden_size),</span>
+<span id="cb37-25"><a href="transformers-for-sentiment-analysis.html#cb37-25" tabindex="-1"></a>                nn.ReLU(),</span>
+<span id="cb37-26"><a href="transformers-for-sentiment-analysis.html#cb37-26" tabindex="-1"></a>                nn.Dropout(dropout),</span>
+<span id="cb37-27"><a href="transformers-for-sentiment-analysis.html#cb37-27" tabindex="-1"></a>                nn.Linear(ffnn_hidden_size, dmodel))</span>
+<span id="cb37-28"><a href="transformers-for-sentiment-analysis.html#cb37-28" tabindex="-1"></a></span>
+<span id="cb37-29"><a href="transformers-for-sentiment-analysis.html#cb37-29" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, inputs):</span>
+<span id="cb37-30"><a href="transformers-for-sentiment-analysis.html#cb37-30" tabindex="-1"></a>        <span class="co"># inputs: Batch of embeddings; shape: (batch_size, seq_length, embedding_dim = dmodel)</span></span>
+<span id="cb37-31"><a href="transformers-for-sentiment-analysis.html#cb37-31" tabindex="-1"></a></span>
+<span id="cb37-32"><a href="transformers-for-sentiment-analysis.html#cb37-32" tabindex="-1"></a>        output, _ <span class="op">=</span> <span class="va">self</span>.attention(inputs, inputs, inputs) <span class="co"># self-attention: same input for K,Q,V</span></span>
+<span id="cb37-33"><a href="transformers-for-sentiment-analysis.html#cb37-33" tabindex="-1"></a>        output <span class="op">=</span> inputs <span class="op">+</span> output</span>
+<span id="cb37-34"><a href="transformers-for-sentiment-analysis.html#cb37-34" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.layer_norm1(output)</span>
+<span id="cb37-35"><a href="transformers-for-sentiment-analysis.html#cb37-35" tabindex="-1"></a>        output <span class="op">=</span> output <span class="op">+</span> <span class="va">self</span>.ffnn(output)</span>
+<span id="cb37-36"><a href="transformers-for-sentiment-analysis.html#cb37-36" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.layer_norm2(output)</span>
+<span id="cb37-37"><a href="transformers-for-sentiment-analysis.html#cb37-37" tabindex="-1"></a></span>
+<span id="cb37-38"><a href="transformers-for-sentiment-analysis.html#cb37-38" tabindex="-1"></a>        <span class="cf">return</span> output <span class="co">#shape: (batch_size, seq_length, dmodel)</span></span>
+<span id="cb37-39"><a href="transformers-for-sentiment-analysis.html#cb37-39" tabindex="-1"></a></span>
+<span id="cb37-40"><a href="transformers-for-sentiment-analysis.html#cb37-40" tabindex="-1"></a></span>
+<span id="cb37-41"><a href="transformers-for-sentiment-analysis.html#cb37-41" tabindex="-1"></a><span class="kw">class</span> Transformer(nn.Module):</span>
+<span id="cb37-42"><a href="transformers-for-sentiment-analysis.html#cb37-42" tabindex="-1"></a></span>
+<span id="cb37-43"><a href="transformers-for-sentiment-analysis.html#cb37-43" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, vocab_size, dmodel, max_len, n_layers<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb37-44"><a href="transformers-for-sentiment-analysis.html#cb37-44" tabindex="-1"></a>                 ffnn_hidden_size<span class="op">=</span><span class="va">None</span>, heads<span class="op">=</span><span class="dv">8</span>, dropout<span class="op">=</span><span class="fl">0.2</span>):</span>
+<span id="cb37-45"><a href="transformers-for-sentiment-analysis.html#cb37-45" tabindex="-1"></a>    <span class="co"># vocab_size: The size of the vocabulary.</span></span>
+<span id="cb37-46"><a href="transformers-for-sentiment-analysis.html#cb37-46" tabindex="-1"></a>    <span class="co"># dmodel: Dimensionality of the embedding vector.</span></span>
+<span id="cb37-47"><a href="transformers-for-sentiment-analysis.html#cb37-47" tabindex="-1"></a>    <span class="co"># max_len: The maximum expected sequence length.</span></span>
+<span id="cb37-48"><a href="transformers-for-sentiment-analysis.html#cb37-48" tabindex="-1"></a>    <span class="co"># n_layers: Number of the stacked Transformer blocks.</span></span>
+<span id="cb37-49"><a href="transformers-for-sentiment-analysis.html#cb37-49" tabindex="-1"></a>    <span class="co"># ffnn_hidden_size: Position-Wise-Feed-Forward Neural Network hidden size.</span></span>
+<span id="cb37-50"><a href="transformers-for-sentiment-analysis.html#cb37-50" tabindex="-1"></a>    <span class="co"># heads:  Number of the self-attention operations to conduct in parallel.</span></span>
+<span id="cb37-51"><a href="transformers-for-sentiment-analysis.html#cb37-51" tabindex="-1"></a>    <span class="co"># dropout: Probability of an element of the tensor to be zeroed.</span></span>
+<span id="cb37-52"><a href="transformers-for-sentiment-analysis.html#cb37-52" tabindex="-1"></a></span>
+<span id="cb37-53"><a href="transformers-for-sentiment-analysis.html#cb37-53" tabindex="-1"></a>        <span class="bu">super</span>(Transformer, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb37-54"><a href="transformers-for-sentiment-analysis.html#cb37-54" tabindex="-1"></a></span>
+<span id="cb37-55"><a href="transformers-for-sentiment-analysis.html#cb37-55" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> ffnn_hidden_size:</span>
+<span id="cb37-56"><a href="transformers-for-sentiment-analysis.html#cb37-56" tabindex="-1"></a>            ffnn_hidden_size <span class="op">=</span> dmodel <span class="op">*</span> <span class="dv">4</span></span>
+<span id="cb37-57"><a href="transformers-for-sentiment-analysis.html#cb37-57" tabindex="-1"></a></span>
+<span id="cb37-58"><a href="transformers-for-sentiment-analysis.html#cb37-58" tabindex="-1"></a>        <span class="va">self</span>.embedding <span class="op">=</span> nn.Embedding(vocab_size, dmodel)</span>
+<span id="cb37-59"><a href="transformers-for-sentiment-analysis.html#cb37-59" tabindex="-1"></a></span>
+<span id="cb37-60"><a href="transformers-for-sentiment-analysis.html#cb37-60" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding <span class="op">=</span> PositionalEncoding(max_len, dmodel, dropout)</span>
+<span id="cb37-61"><a href="transformers-for-sentiment-analysis.html#cb37-61" tabindex="-1"></a></span>
+<span id="cb37-62"><a href="transformers-for-sentiment-analysis.html#cb37-62" tabindex="-1"></a>        <span class="va">self</span>.tnf_blocks <span class="op">=</span> nn.ModuleList()</span>
+<span id="cb37-63"><a href="transformers-for-sentiment-analysis.html#cb37-63" tabindex="-1"></a></span>
+<span id="cb37-64"><a href="transformers-for-sentiment-analysis.html#cb37-64" tabindex="-1"></a>        <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(n_layers):</span>
+<span id="cb37-65"><a href="transformers-for-sentiment-analysis.html#cb37-65" tabindex="-1"></a>            <span class="va">self</span>.tnf_blocks.append(</span>
+<span id="cb37-66"><a href="transformers-for-sentiment-analysis.html#cb37-66" tabindex="-1"></a>                TransformerBlock(dmodel, ffnn_hidden_size, heads, dropout))</span>
+<span id="cb37-67"><a href="transformers-for-sentiment-analysis.html#cb37-67" tabindex="-1"></a></span>
+<span id="cb37-68"><a href="transformers-for-sentiment-analysis.html#cb37-68" tabindex="-1"></a>        <span class="va">self</span>.tnf_blocks <span class="op">=</span> nn.Sequential(<span class="op">*</span><span class="va">self</span>.tnf_blocks)</span>
+<span id="cb37-69"><a href="transformers-for-sentiment-analysis.html#cb37-69" tabindex="-1"></a></span>
+<span id="cb37-70"><a href="transformers-for-sentiment-analysis.html#cb37-70" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> nn.Linear(dmodel, <span class="dv">2</span>)</span>
+<span id="cb37-71"><a href="transformers-for-sentiment-analysis.html#cb37-71" tabindex="-1"></a></span>
+<span id="cb37-72"><a href="transformers-for-sentiment-analysis.html#cb37-72" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, inputs): <span class="co"># inputs shape: (batch_size, seq_length, dmodel)</span></span>
+<span id="cb37-73"><a href="transformers-for-sentiment-analysis.html#cb37-73" tabindex="-1"></a>        <span class="va">self</span>.batch_size <span class="op">=</span> inputs.size(<span class="dv">0</span>)</span>
+<span id="cb37-74"><a href="transformers-for-sentiment-analysis.html#cb37-74" tabindex="-1"></a></span>
+<span id="cb37-75"><a href="transformers-for-sentiment-analysis.html#cb37-75" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.embedding(inputs)</span>
+<span id="cb37-76"><a href="transformers-for-sentiment-analysis.html#cb37-76" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.pos_encoding(output)</span>
+<span id="cb37-77"><a href="transformers-for-sentiment-analysis.html#cb37-77" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.tnf_blocks(output) <span class="co"># output shape: (batch_size, seq_length, dmodel)</span></span>
+<span id="cb37-78"><a href="transformers-for-sentiment-analysis.html#cb37-78" tabindex="-1"></a></span>
+<span id="cb37-79"><a href="transformers-for-sentiment-analysis.html#cb37-79" tabindex="-1"></a>        <span class="co"># Apply max-pooling; output shape: (batch_size, dmodel)</span></span>
+<span id="cb37-80"><a href="transformers-for-sentiment-analysis.html#cb37-80" tabindex="-1"></a>        output <span class="op">=</span> F.adaptive_max_pool1d(output.permute(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">1</span>,)).view(<span class="va">self</span>.batch_size,<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb37-81"><a href="transformers-for-sentiment-analysis.html#cb37-81" tabindex="-1"></a></span>
+<span id="cb37-82"><a href="transformers-for-sentiment-analysis.html#cb37-82" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.linear(output)</span>
+<span id="cb37-83"><a href="transformers-for-sentiment-analysis.html#cb37-83" tabindex="-1"></a></span>
+<span id="cb37-84"><a href="transformers-for-sentiment-analysis.html#cb37-84" tabindex="-1"></a>        <span class="cf">return</span> F.softmax(output, dim<span class="op">=-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="transformers-for-sentiment-analysis.html#cb38-1" tabindex="-1"></a>model <span class="op">=</span> Transformer(vocab_size<span class="op">=</span><span class="dv">20000</span>, dmodel<span class="op">=</span><span class="dv">32</span>, max_len<span class="op">=</span><span class="dv">256</span>,</span>
+<span id="cb38-2"><a href="transformers-for-sentiment-analysis.html#cb38-2" tabindex="-1"></a>                    n_layers<span class="op">=</span><span class="dv">1</span>, heads<span class="op">=</span><span class="dv">4</span>, dropout<span class="op">=</span><span class="fl">0.2</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="train-and-evaluate-the-transformer" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Train and evaluate the transformer<a href="transformers-for-sentiment-analysis.html#train-and-evaluate-the-transformer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="transformers-for-sentiment-analysis.html#cb39-1" tabindex="-1"></a><span class="co"># Create DataLoader</span></span>
+<span id="cb39-2"><a href="transformers-for-sentiment-analysis.html#cb39-2" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">32</span></span>
+<span id="cb39-3"><a href="transformers-for-sentiment-analysis.html#cb39-3" tabindex="-1"></a>train_loader <span class="op">=</span> DataLoader(TensorDataset(x_train, torch.tensor(y_train)), batch_size<span class="op">=</span>batch_size, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb39-4"><a href="transformers-for-sentiment-analysis.html#cb39-4" tabindex="-1"></a>test_loader <span class="op">=</span> DataLoader(TensorDataset(x_test, torch.tensor(y_test)), batch_size<span class="op">=</span>batch_size, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="transformers-for-sentiment-analysis.html#cb40-1" tabindex="-1"></a><span class="co"># Train the transformer</span></span>
+<span id="cb40-2"><a href="transformers-for-sentiment-analysis.html#cb40-2" tabindex="-1"></a>optimizer <span class="op">=</span> optim.Adam(model.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>) <span class="co"># ADAM optimiser with learning rate of 0.001</span></span>
+<span id="cb40-3"><a href="transformers-for-sentiment-analysis.html#cb40-3" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss() <span class="co"># Loss function: cross-entropy</span></span>
+<span id="cb40-4"><a href="transformers-for-sentiment-analysis.html#cb40-4" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">1</span> <span class="co"># Total number of epochs</span></span>
+<span id="cb40-5"><a href="transformers-for-sentiment-analysis.html#cb40-5" tabindex="-1"></a>loss_history <span class="op">=</span> [] <span class="co"># List to store the loss</span></span>
+<span id="cb40-6"><a href="transformers-for-sentiment-analysis.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="transformers-for-sentiment-analysis.html#cb40-7" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
+<span id="cb40-8"><a href="transformers-for-sentiment-analysis.html#cb40-8" tabindex="-1"></a>    iteration <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Track total iterations across epochs</span></span>
+<span id="cb40-9"><a href="transformers-for-sentiment-analysis.html#cb40-9" tabindex="-1"></a>    <span class="cf">for</span> batch_x, batch_y <span class="kw">in</span> train_loader:</span>
+<span id="cb40-10"><a href="transformers-for-sentiment-analysis.html#cb40-10" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb40-11"><a href="transformers-for-sentiment-analysis.html#cb40-11" tabindex="-1"></a>        outputs <span class="op">=</span> model(batch_x)</span>
+<span id="cb40-12"><a href="transformers-for-sentiment-analysis.html#cb40-12" tabindex="-1"></a>        loss <span class="op">=</span> criterion(outputs, batch_y)</span>
+<span id="cb40-13"><a href="transformers-for-sentiment-analysis.html#cb40-13" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb40-14"><a href="transformers-for-sentiment-analysis.html#cb40-14" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb40-15"><a href="transformers-for-sentiment-analysis.html#cb40-15" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="transformers-for-sentiment-analysis.html#cb40-16" tabindex="-1"></a>        loss_history.append(loss.item())</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="transformers-for-sentiment-analysis.html#cb41-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb41-2"><a href="transformers-for-sentiment-analysis.html#cb41-2" tabindex="-1"></a>plt.plot(loss_history)</span>
+<span id="cb41-3"><a href="transformers-for-sentiment-analysis.html#cb41-3" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="transformers-for-sentiment-analysis.html#cb42-1" tabindex="-1"></a>predictions <span class="op">=</span> []  <span class="co"># To store predictions</span></span>
+<span id="cb42-2"><a href="transformers-for-sentiment-analysis.html#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="transformers-for-sentiment-analysis.html#cb42-3" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb42-4"><a href="transformers-for-sentiment-analysis.html#cb42-4" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb42-5"><a href="transformers-for-sentiment-analysis.html#cb42-5" tabindex="-1"></a>    <span class="cf">for</span> batch <span class="kw">in</span> test_loader:</span>
+<span id="cb42-6"><a href="transformers-for-sentiment-analysis.html#cb42-6" tabindex="-1"></a>        x_batch, _ <span class="op">=</span> batch</span>
+<span id="cb42-7"><a href="transformers-for-sentiment-analysis.html#cb42-7" tabindex="-1"></a>        batch_predictions <span class="op">=</span> model(x_batch)</span>
+<span id="cb42-8"><a href="transformers-for-sentiment-analysis.html#cb42-8" tabindex="-1"></a>        predictions.append(batch_predictions)</span>
+<span id="cb42-9"><a href="transformers-for-sentiment-analysis.html#cb42-9" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="transformers-for-sentiment-analysis.html#cb42-10" tabindex="-1"></a><span class="co"># Concatenate all predictions into a single tensor, then convert to NumPy</span></span>
+<span id="cb42-11"><a href="transformers-for-sentiment-analysis.html#cb42-11" tabindex="-1"></a>predictions <span class="op">=</span> torch.cat(predictions).numpy()</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="transformers-for-sentiment-analysis.html#cb43-1" tabindex="-1"></a>incorrectlist <span class="op">=</span> np.where(np.argmax(predictions,axis<span class="op">=-</span><span class="dv">1</span>)<span class="op">!=</span>y_test)[<span class="dv">0</span>]</span>
+<span id="cb43-2"><a href="transformers-for-sentiment-analysis.html#cb43-2" tabindex="-1"></a>incorrectscores <span class="op">=</span> predictions[np.argmax(predictions,axis<span class="op">=-</span><span class="dv">1</span>)<span class="op">!=</span>y_test]</span>
+<span id="cb43-3"><a href="transformers-for-sentiment-analysis.html#cb43-3" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="transformers-for-sentiment-analysis.html#cb43-4" tabindex="-1"></a>mostpositiveincorrectscore <span class="op">=</span> incorrectlist[np.argmax(incorrectscores[:,<span class="dv">1</span>])]</span>
+<span id="cb43-5"><a href="transformers-for-sentiment-analysis.html#cb43-5" tabindex="-1"></a>mostnegativeincorrectscore <span class="op">=</span> incorrectlist[np.argmin(incorrectscores[:,<span class="dv">1</span>])]</span>
+<span id="cb43-6"><a href="transformers-for-sentiment-analysis.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="transformers-for-sentiment-analysis.html#cb43-7" tabindex="-1"></a>correctlist <span class="op">=</span> np.where(np.argmax(predictions,axis<span class="op">=-</span><span class="dv">1</span>)<span class="op">==</span>y_test)[<span class="dv">0</span>]</span>
+<span id="cb43-8"><a href="transformers-for-sentiment-analysis.html#cb43-8" tabindex="-1"></a>correctscores <span class="op">=</span> predictions[np.argmax(predictions,axis<span class="op">=-</span><span class="dv">1</span>)<span class="op">==</span>y_test]</span>
+<span id="cb43-9"><a href="transformers-for-sentiment-analysis.html#cb43-9" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="transformers-for-sentiment-analysis.html#cb43-10" tabindex="-1"></a>mostpositivecorrectscore <span class="op">=</span> correctlist[np.argmax(correctscores[:,<span class="dv">1</span>])]</span>
+<span id="cb43-11"><a href="transformers-for-sentiment-analysis.html#cb43-11" tabindex="-1"></a>mostnegativecorrectscore <span class="op">=</span> correctlist[np.argmin(correctscores[:,<span class="dv">1</span>])]</span>
+<span id="cb43-12"><a href="transformers-for-sentiment-analysis.html#cb43-12" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="transformers-for-sentiment-analysis.html#cb43-13" tabindex="-1"></a>indexes <span class="op">=</span> [mostpositiveincorrectscore, mostnegativeincorrectscore,</span>
+<span id="cb43-14"><a href="transformers-for-sentiment-analysis.html#cb43-14" tabindex="-1"></a>                      mostpositivecorrectscore,mostnegativecorrectscore]</span>
+<span id="cb43-15"><a href="transformers-for-sentiment-analysis.html#cb43-15" tabindex="-1"></a></span>
+<span id="cb43-16"><a href="transformers-for-sentiment-analysis.html#cb43-16" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> indexes:</span>
+<span id="cb43-17"><a href="transformers-for-sentiment-analysis.html#cb43-17" tabindex="-1"></a>    decoded_review <span class="op">=</span> [integer_to_word.get(i <span class="op">-</span> <span class="dv">3</span>,<span class="st">&#39;pad&#39;</span>) <span class="cf">for</span> i <span class="kw">in</span> x_test[n].numpy()]</span>
+<span id="cb43-18"><a href="transformers-for-sentiment-analysis.html#cb43-18" tabindex="-1"></a></span>
+<span id="cb43-19"><a href="transformers-for-sentiment-analysis.html#cb43-19" tabindex="-1"></a>    <span class="cf">if</span> y_test[n]<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb43-20"><a href="transformers-for-sentiment-analysis.html#cb43-20" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Negative review with scores &quot;</span>, end<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb43-21"><a href="transformers-for-sentiment-analysis.html#cb43-21" tabindex="-1"></a>        <span class="bu">print</span>(predictions[n][<span class="dv">0</span>], predictions[n][<span class="dv">1</span>])</span>
+<span id="cb43-22"><a href="transformers-for-sentiment-analysis.html#cb43-22" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb43-23"><a href="transformers-for-sentiment-analysis.html#cb43-23" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Positive review with scores &quot;</span>, end<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb43-24"><a href="transformers-for-sentiment-analysis.html#cb43-24" tabindex="-1"></a>        <span class="bu">print</span>(predictions[n][<span class="dv">0</span>], predictions[n][<span class="dv">1</span>])</span>
+<span id="cb43-25"><a href="transformers-for-sentiment-analysis.html#cb43-25" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> decoded_review:</span>
+<span id="cb43-26"><a href="transformers-for-sentiment-analysis.html#cb43-26" tabindex="-1"></a>        <span class="cf">if</span> word <span class="op">==</span> <span class="st">&#39;pad&#39;</span>:</span>
+<span id="cb43-27"><a href="transformers-for-sentiment-analysis.html#cb43-27" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb43-28"><a href="transformers-for-sentiment-analysis.html#cb43-28" tabindex="-1"></a>        <span class="bu">print</span>(word, end<span class="op">=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb43-29"><a href="transformers-for-sentiment-analysis.html#cb43-29" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="recurrent-neural-network-rnn.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

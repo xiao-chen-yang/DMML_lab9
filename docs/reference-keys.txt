@@ -1,5 +1,11 @@
 welcome-to-dmml-lab-9
-k-means
-k-medoids
-exercise-1-usarrests
-exercise-2-iris-data
+recurrent-neural-network-rnn
+build-a-rnn-network
+training-and-evaluating-the-rnn
+transformers-for-sentiment-analysis
+download-the-dataset
+build-a-transformer
+positional-encoding
+multi-head-attention
+transformer-network
+train-and-evaluate-the-transformer

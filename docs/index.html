@@ -29,7 +29,7 @@
   
   
 
-<link rel="next" href="exercise-1-usarrests.html"/>
+<link rel="next" href="recurrent-neural-network-rnn.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -136,13 +136,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to DMML Lab 9</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to DMML Lab 9</a></li>
+<li class="chapter" data-level="2" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html"><i class="fa fa-check"></i><b>2</b> Recurrent Neural Network (RNN)</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#k-means"><i class="fa fa-check"></i><b>1.1</b> K-means</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#k-medoids"><i class="fa fa-check"></i><b>1.2</b> K-medoids</a></li>
+<li class="chapter" data-level="2.1" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html#build-a-rnn-network"><i class="fa fa-check"></i><b>2.1</b> Build a RNN network</a></li>
+<li class="chapter" data-level="2.2" data-path="recurrent-neural-network-rnn.html"><a href="recurrent-neural-network-rnn.html#training-and-evaluating-the-rnn"><i class="fa fa-check"></i><b>2.2</b> Training and evaluating the RNN</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="exercise-1-usarrests.html"><a href="exercise-1-usarrests.html"><i class="fa fa-check"></i><b>2</b> Exercise 1: USArrests</a></li>
-<li class="chapter" data-level="3" data-path="exercise-2-iris-data.html"><a href="exercise-2-iris-data.html"><i class="fa fa-check"></i><b>3</b> Exercise 2: Iris data</a></li>
+<li class="chapter" data-level="3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html"><i class="fa fa-check"></i><b>3</b> Transformers for sentiment analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#download-the-dataset"><i class="fa fa-check"></i><b>3.1</b> Download the dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#build-a-transformer"><i class="fa fa-check"></i><b>3.2</b> Build a transformer</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#positional-encoding"><i class="fa fa-check"></i><b>3.2.1</b> Positional encoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#multi-head-attention"><i class="fa fa-check"></i><b>3.2.2</b> Multi-head attention</a></li>
+<li class="chapter" data-level="3.2.3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#transformer-network"><i class="fa fa-check"></i><b>3.2.3</b> Transformer network</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="transformers-for-sentiment-analysis.html"><a href="transformers-for-sentiment-analysis.html#train-and-evaluate-the-transformer"><i class="fa fa-check"></i><b>3.3</b> Train and evaluate the transformer</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -165,50 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="welcome-to-dmml-lab-9" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Welcome to DMML Lab 9<a href="index.html#welcome-to-dmml-lab-9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In week 9, we studied about partitioning cluster analysis and more specifically, <span class="math inline">\(K\)</span>-means clustering and <span class="math inline">\(K\)</span>-medoids clustering.</p>
-<div id="k-means" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> K-means<a href="index.html#k-means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math inline">\(K\)</span>-means is implemented in <code>R</code> using the function <code>kmeans</code> in the <code>stats</code> package. As explained in Week 9 lecture note, the function takes the following arguments:</p>
-<ul>
-<li><p><code>x</code>: numeric matrix of data, or an object that can be coerced to such a matrix (such as a numeric vector or a data frame with all numeric columns).</p></li>
-<li><p><code>centers</code>: either the number of clusters, <span class="math inline">\(K\)</span>, or a set of initial (distinct) cluster centres. If a number, a random set of (distinct) rows in <code>x</code> is chosen as the initial centres.</p></li>
-<li><p><code>iter.max</code>: the maximum number of iterations allowed.</p></li>
-<li><p><code>nstart</code>: if <code>centers</code> is a number, how many random sets should be chosen.</p></li>
-</ul>
-<p>The last two arguments are required as <span class="math inline">\(K\)</span>-means is implemented using an iterative algorithm and thus may take a few iterations to converge to local optimum, and it is recommended to run the algorithm multiple times to find the best initialisation that leads to a relatively good local optimum.</p>
-<p><code>kmeans</code> return a list of following components (it is important to understand what each component means):</p>
-<p><code>kmeans</code> returns an object of class "<code>kmeans</code>" which has a <code>print</code> and a <code>fitted</code> method. It is a list with at least the following components:</p>
-<ul>
-<li><p><code>cluster</code>: A vector of integers (from 1:<span class="math inline">\(K\)</span>) with length equal to the number of observations indicating the cluster to which each point is allocated.</p></li>
-<li><p><code>centers</code>: A matrix of cluster centres with each row representing a cluster centre.</p></li>
-<li><p><code>totss</code>: The total sum of squares.</p></li>
-<li><p><code>withinss</code>: Vector of within-cluster sum of squares, one per cluster.</p></li>
-<li><p><code>tot.withinss</code>: Total within-cluster sum of squares, i.e. <code>sum(withinss)</code>.</p></li>
-<li><p><code>betweenss</code>: The between-cluster sum of squares, i.e. <code>totss-tot.withinss</code>.</p></li>
-<li><p><code>size</code>: The number of points in each cluster.</p></li>
-<li><p><code>iter</code>: The number of (outer) iterations.</p></li>
-</ul>
-</div>
-<div id="k-medoids" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> K-medoids<a href="index.html#k-medoids" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math inline">\(K\)</span>-medoids is implemented by using the function <code>pam</code> in the <code>cluster</code> package. Its usage and arguments are similar to <code>kmeans</code>, except an additional argument <code>metric</code> to allow for the flexibility in using non-Euclidean distances.</p>
-<ul>
-<li><p><code>x</code>: data matrix or data frame, or dissimilarity matrix.</p></li>
-<li><p><code>k</code>: the number of clusters.</p></li>
-<li><p><code>metric</code>: the metric to be used for calculating dissimilarities between observations. The currently available options are "euclidean" and "manhattan".</p></li>
-<li><p><code>medoids</code>: length-<code>k</code> vector of integer indices specifying initial medoids; <code>NULL</code> (default).</p></li>
-<li><p><code>nstart</code>: the number of random "starts"; used only when <code>medoids = "random"</code></p></li>
-</ul>
-<p>The output returned by <code>pam</code> includes:</p>
-<ul>
-<li><p><code>medoids</code>: The medoids or representative objects of the clusters.</p></li>
-<li><p><code>id.med</code>: A vector of integers with length <span class="math inline">\(K\)</span> which specifies the indices giving the medoid observation numbers.</p></li>
-<li><p><code>clustering</code>: A vector of integers (from 1:<span class="math inline">\(K\)</span>) with length equal to the number of observations indicating the cluster to which each point is allocated.</p></li>
-<li><p><code>clusinfo</code>: A matrix where each row gives numerical information for one cluster, such as cluster size, maximum dissimilarity within the cluster, average dissimilarity.</p></li>
-<li><p><code>silinfo</code>: A list of silhouette width information.</p></li>
-</ul>
+<p>In week 9, we have studied deep learning models to handle sequential data, specifically recurrent neural network (RNN), long short-term memory (LSTM), gated recurrent unit (GRU) and transformer. In this lab, we will see how to fit a time series using RNN and illustrate the sentiment analysis example in lecture note in more details. All codes are implemented in Python.</p>
 
-</div>
 </div>
 <script>
 
@@ -387,7 +355,7 @@ window.onload = function() {
         </div>
       </div>
 
-<a href="exercise-1-usarrests.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="recurrent-neural-network-rnn.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

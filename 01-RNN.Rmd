@@ -1,0 +1,145 @@
+# Recurrent Neural Network (RNN)
+
+In this task, we will train a RNN to predict a univariate time series.
+
+The dataset we will look at is the [Air Passengers](https://www.kaggle.com/datasets/abhishekmamidi/air-passengers) dataset, which gives information of monthly passengers totals of a US airline from 1949 to 1960.
+
+First, let's load the dataset and visualise it.
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('airline-passengers.csv')
+timeseries = df[["Passengers"]].values.astype('float32') # convert it a 2D numpy array
+
+plt.plot(timeseries)
+plt.xlabel("Time"); plt.ylabel("Number of passengers")
+plt.show()
+```
+
+We can observe an overall upward trend with some seasonal periodicity due to summer holiday.
+
+Next, we split the data into training and test sets. Unlike multivariate data, which we previously selected randomly, time series data is typically split without shuffling to preserve its temporal structure.
+
+```{python}
+# train-test split for time series
+train_size = int(len(timeseries) * 0.67)
+test_size = len(timeseries) - train_size
+train, test = timeseries[:train_size], timeseries[train_size:]
+```
+
+Usually time series prediction is done on a window. That is, given data from time $t-w$ to time $t$, our goal is to predict for time $t+1$ (or deeper into the future). The size of window $w$ governs how much data you are allowed to look at when you make the prediction. This is also called the lags or lookback period.
+
+To implement this idea, we will create a function designed to apply windows on the time series. It will convert a time series into a tensor of dimensions (window sample, lags/lookback period, features). The window sample is the number of time series segments (training samples) created from the original time series, lags/lookback periods is the number of past time steps our model is allowed to look at, and feature is the number of variables recorded at each time step. In our case, we are dealing with a univariate time series containing the passenger number only, thus feature = 1.
+
+```{python}
+import torch
+
+def create_dataset(dataset, lookback):
+    X, y = [], []
+    for i in range(len(dataset)-lookback):
+        feature = dataset[i:i+lookback]
+        target = dataset[i+1:i+lookback+1]
+        X.append(feature)
+        y.append(target)
+    return torch.tensor(X), torch.tensor(y) # convert to Torch tensor for later use
+    # output dim: (window sample, lookback period, features)
+
+lookback = 3
+X_train, y_train = create_dataset(train, lookback=lookback)
+X_test, y_test = create_dataset(test, lookback=lookback)
+
+print(X_train.shape, y_train.shape)
+print(X_test.shape,  y_test.shape)
+```
+
+After conversion, the training (test, resp.) time series is partitioned into 92 (44, resp.) overlapping segments. Each time segment contains three time steps, and each time step contains only one feature. Note that the "input" (X) and the "output" (y) are intentionally generated to have the same shape: For a window of four time steps, the "input" is the time series from $t$ to $t+2$ and the "output" is from $t+1$ to $t+3$. What we are interested is $t+3$ but the information from $t+1$ and $t+2$ is useful in training.
+
+## Build a RNN network
+
+We will create a class by subclassing `nn.Module` to create a class for our model and using PyTorch's built in RNN and fully-connected layer, and then define the forward pass through the network using the `forward` function.
+
+```{python}
+import torch.nn as nn
+
+class SimpleRNN(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(SimpleRNN, self).__init__()
+        self.rnn = nn.RNN(input_size, hidden_size, batch_first=True)
+        self.fc = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        h0 = torch.zeros(1, x.size(0), hidden_size) #(number of hidden layers, batch size, hidden size)
+        out, _ = self.rnn(x, h0)
+        out = self.fc(out)
+        return out
+
+input_size = 1
+hidden_size = 20
+output_size = 1
+model = SimpleRNN(input_size, hidden_size, output_size)
+```
+
+The output of nn.RNN() is a tuple. The first element is the output features from the last layer of the RNN (only one layer in the above code), one for each time step of the input. The second element is the hidden state for each element in the batch.
+
+The RNN layer is created with option `batch_first=True` because the tensors we prepared is in the dimension of (window sample, time steps, features) and where a batch is created by sampling on the first dimension.
+
+The output features are further processed by a fully-connected layer to produce a single predicted value.
+
+## Training and evaluating the RNN
+
+In the code below, the PyTorch tensors are combined into a dataset using `torch.utils.data.TensorDataset()`, followed by `DataLoader` to pass samples in "minibatches".
+
+```{python}
+import torch.utils.data as data
+
+train_loader = data.DataLoader(data.TensorDataset(X_train, y_train), shuffle=True, batch_size=8)
+```
+
+Since our target is a continuous variable, we will choose mean squared error (MSE) as the loss function. We will optimise the loss function by using the Adam optimizer (and default learning rate). The model is trained for 2000 epochs (epoch: the number of times a learning algorithm sees the complete dataset).
+
+```{python}
+import torch.optim as optim
+
+optimizer = optim.Adam(model.parameters())
+criterion = nn.MSELoss()
+loss_history = []
+
+n_epochs = 2000
+for epoch in range(n_epochs):
+    model.train()
+    for X_batch, y_batch in train_loader:
+        y_pred = model(X_batch)
+        loss = criterion(y_pred, y_batch)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        loss_history.append(loss.item())
+    if epoch % 100 == 1:
+        print("Loss:", loss.item())
+```
+
+```{python}
+plt.plot(loss_history)
+```
+
+```{python}
+import numpy as np
+
+model.eval()
+with torch.no_grad():
+    # shift train predictions for plotting
+    train_plot = np.ones_like(timeseries) * np.nan
+    train_plot[lookback:train_size] = model(X_train)[:, -1, :]
+    # shift test predictions for plotting
+    test_plot = np.ones_like(timeseries) * np.nan
+    test_plot[train_size+lookback:len(timeseries)] = model(X_test)[:, -1, :]
+# plot
+plt.plot(timeseries)
+plt.plot(train_plot, c='r')
+plt.plot(test_plot, c='g')
+plt.show()
+```
+
